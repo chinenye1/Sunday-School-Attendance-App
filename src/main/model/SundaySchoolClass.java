@@ -114,6 +114,4 @@ public class SundaySchoolClass {
         students.clear();
         teachers.clear();
     }
-
-
 }

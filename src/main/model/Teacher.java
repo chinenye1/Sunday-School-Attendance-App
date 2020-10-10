@@ -7,6 +7,9 @@ public class Teacher {
     private int address;
     private boolean canDrive;
 
+    // REQUIRES: address >= 0
+    // EFFECTS: creates a teacher with specified name, address (only digits)
+    //          and whether they can drive.
     public Teacher(String name, int address, boolean canDrive) {
         this.name = name;
         this.address = address;
@@ -24,6 +27,7 @@ public class Teacher {
     public boolean getCanDrive() {
         return canDrive;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -35,6 +39,4 @@ public class Teacher {
     public void setCanDrive(boolean canDrive) {
         this.canDrive = canDrive;
     }
-
-
 }

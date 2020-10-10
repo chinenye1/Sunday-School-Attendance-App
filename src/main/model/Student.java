@@ -15,7 +15,7 @@ public class Student {
     public boolean isPresent;
     private boolean givenReleaseConsent;
 
-    // REQUIRES: age >=0, sex == "Male" or "Female", address >= 0
+    // REQUIRES: age >=0, sex == "M" or "F", address >= 0
     // EFFECTS: creates a student with specified name, sex, age, address (only digits)
     //          and whether video and picture release consent has been given.
     //         Student starts out with no points, and zero track record for attendance.
