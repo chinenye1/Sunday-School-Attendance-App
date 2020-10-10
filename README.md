@@ -24,11 +24,12 @@ create efficient carpools groups which minimize the distance that each driver ha
 - As a user, I want to be able to take away all students and teachers from a class at once
 - As a user, I want to be able to add a student to a class
 - As a user, I want to be able to remove a student from a class
-- As a user, I want to be able to add multiple teachers to a class
-- As a user, I want to be able to remove multiple teachers from a class
+- As a user, I want to be able to add a teacher to a class
+- As a user, I want to be able to remove a teacher from a class
 
+- As a user, I want to be able to take attendance 
 
-- As a user, I want to be able to store if a student:
+- As a user, I want to be able to give students points if they:
   - came to sunday school
   - said their verse
   - brought their Bible 
@@ -36,11 +37,15 @@ create efficient carpools groups which minimize the distance that each driver ha
   - behaved well each sunday school day
   
   
+- As a user, I want to be able to determine if a student gets an award 
+
+  
+  
 - As a user, I want to be able to have access to a student's:
    - name
    - age
    - sex
-   - accumulated points
+   - total points
    - address 
    - whether they have video and written consent
    
