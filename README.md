@@ -20,40 +20,18 @@ application could be extended to provide various graphical depictions of the sun
 create efficient carpools groups which minimize the distance that each driver has to drive.
  
  #### User Stories
-- As a user, I want to be able to create a class with space for a teacher and a list of students (no fixed size)
-- As a user, I want to be able to take away all students and teachers from a class at once
-- As a user, I want to be able to add a student to a class
-- As a user, I want to be able to remove a student from a class
-- As a user, I want to be able to add a teacher to a class
-- As a user, I want to be able to remove a teacher from a class
+- As a user, I want to be able to create a sunday school class with space for a teacher and a list of students 
+(no fixed size)
+- As a user, I want to be able to add and remove a student to a class
+- As a user, I want to be able to add and remove a teacher to a class
+- As a user, I want to be able to be able to view all the people (teacher and students) that are part of a class
+- As a user, I want to be able to take attendance of the students present in class 
+- As a user, I want to be able to empty a class
+- As a user, I want to be able to see which of the students and teachers were present in class, and which were not
 
-- As a user, I want to be able to take attendance 
-
-- As a user, I want to be able to give students points if they:
-  - came to sunday school
-  - said their verse
-  - brought their Bible 
-  - brought a friend
-  - behaved well each sunday school day
-  
-  
-- As a user, I want to be able to determine if a student gets an award 
 
   
   
-- As a user, I want to be able to have access to a student's:
-   - name
-   - age
-   - sex
-   - total points
-   - address 
-   - whether they have video and written consent
-   
-    
-- As a user, I want to be able to have access to a teacher's:
-   - name 
-   - address
-   - ability to drive
    
    
 
