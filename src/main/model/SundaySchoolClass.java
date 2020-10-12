@@ -6,9 +6,9 @@ import java.util.List;
 // Represents a sunday school class with a teacher and a list of students; the class starts empty.
 // Class behaviour entails typical activities in a sunday school class.
 public class SundaySchoolClass {
-    public int dailyClassTotal;
-    public List<Person> students;
-    public List<Person> teachers;
+    private int dailyClassTotal;
+    private List<Person> students;
+    private List<Person> teachers;
 
     // EFFECTS: creates a empty sunday school class
     public SundaySchoolClass() {
@@ -18,35 +18,39 @@ public class SundaySchoolClass {
     }
 
     // MODIFIES: this
-    // EFFECTS: returns number of students present today
+    // EFFECTS: returns number of students and teachers present today
     public void takeAttendance() {
         for (Person s : students) {
             if (s.getIsPresent()) {
                 dailyClassTotal++;
             }
         }
-        System.out.println("dailyClassTotal is:" + dailyClassTotal);
+        for (Person t : teachers) {
+            if (t.getIsPresent()) {
+                dailyClassTotal++;
+            }
+        }
     }
 
     // EFFECTS: returns names of Teachers present in class today
-    public List<String> teachersPresentInClass(boolean present) {
-        return findPersonsPresent(teachers, present);
+    public List<String> teachersPresentInClass() {
+        return findPersonsPresent(teachers);
     }
 
     // EFFECTS: returns names of Teachers Absent in class today
-    public List<String> teachersAbsentInClass(boolean absent) {
-        return findPersonsAbsent(teachers, absent);
+    public List<String> teachersAbsentInClass() {
+        return findPersonsAbsent(teachers);
     }
 
 
     // EFFECTS: returns names of Students present in class today
-    public List<String> studentsPresentInClass(boolean present) {
-        return findPersonsPresent(students, present);
+    public List<String> studentsPresentInClass() {
+        return findPersonsPresent(students);
     }
 
     // EFFECTS: returns names of Teachers Absent in class today
-    public List<String> studentsAbsentInClass(boolean absent) {
-        return findPersonsAbsent(students, absent);
+    public List<String> studentsAbsentInClass() {
+        return findPersonsAbsent(students);
     }
 
     // MODIFIES: this
@@ -74,7 +78,8 @@ public class SundaySchoolClass {
     }
 
     // MODIFIES: this
-    // EFFECTS: empties list of students and teachers
+    // EFFECTS: empties list of students and teachers,
+    //          and resets daily class total of students
     public void emptyClass() {
         students.clear();
         teachers.clear();
@@ -82,10 +87,10 @@ public class SundaySchoolClass {
     }
 
     // EFFECTS: returns names of Persons that are present
-    public List<String> findPersonsPresent(List<Person> persons, boolean meetsRequirement) {
+    private List<String> findPersonsPresent(List<Person> persons) {
         List<String> namesThatMeetRequirement = new ArrayList<>();
         for (Person p : persons) {
-            if (p.getIsPresent()) {
+            if (p.getIsPresent() == true) {
                 namesThatMeetRequirement.add(p.getName());
             }
         }
@@ -93,16 +98,15 @@ public class SundaySchoolClass {
     }
 
     // EFFECTS: returns names of names of Persons that are absent
-    public List<String> findPersonsAbsent(List<Person> persons, boolean meetsRequirement) {
+    private List<String> findPersonsAbsent(List<Person> persons) {
         List<String> namesThatMeetRequirement = new ArrayList<>();
         for (Person p : persons) {
-            if (p.getIsPresent()) {
+            if (p.getIsPresent() == false) {
                 namesThatMeetRequirement.add(p.getName());
             }
         }
         return namesThatMeetRequirement;
     }
-
 
     public int getDailyClassTotal() {
         return dailyClassTotal;
@@ -115,5 +119,4 @@ public class SundaySchoolClass {
     public List<Person> getTeachers() {
         return teachers;
     }
-
 }
