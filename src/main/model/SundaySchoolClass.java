@@ -6,14 +6,12 @@ import java.util.List;
 // Represents a sunday school class with a teacher and a list of students; the class starts empty.
 // Class behaviour entails typical activities in a sunday school class.
 public class SundaySchoolClass {
-    private static final boolean PRESENT = true; // used as a true or false flag
-
     public int dailyClassTotal;
-    public List<Student> students;
-    public List<Teacher> teachers;
+    public List<Person> students;
+    public List<Person> teachers;
 
     // EFFECTS: creates a empty sunday school class
-    public SundaySchoolClass(String grade) {
+    public SundaySchoolClass() {
         dailyClassTotal = 0;
         students = new ArrayList<>();
         teachers = new ArrayList<>();
@@ -22,36 +20,33 @@ public class SundaySchoolClass {
     // MODIFIES: this
     // EFFECTS: returns number of students present today
     public void takeAttendance() {
-        for (Student s : students) {
+        for (Person s : students) {
             if (s.getIsPresent()) {
                 dailyClassTotal++;
             }
         }
+        System.out.println("dailyClassTotal is:" + dailyClassTotal);
     }
 
     // EFFECTS: returns names of Teachers present in class today
-    public List<String> teachersPresentInClass() {
-        List<String> namesPresent = findTeachersThatMeetRequirement(PRESENT);
-        return namesPresent;
+    public List<String> teachersPresentInClass(boolean present) {
+        return findPersonsPresent(teachers, present);
     }
 
     // EFFECTS: returns names of Teachers Absent in class today
-    public List<String> teachersAbsentInClass() {
-        List<String> namesAbsent = findTeachersThatMeetRequirement(!PRESENT);
-        return namesAbsent;
+    public List<String> teachersAbsentInClass(boolean absent) {
+        return findPersonsAbsent(teachers, absent);
     }
 
 
     // EFFECTS: returns names of Students present in class today
-    public List<String> studentsPresentInClass() {
-        List<String> namesPresent = findStudentsThatMeetRequirement(PRESENT);
-        return namesPresent;
+    public List<String> studentsPresentInClass(boolean present) {
+        return findPersonsPresent(students, present);
     }
 
     // EFFECTS: returns names of Teachers Absent in class today
-    public List<String> studentsAbsentInClass() {
-        List<String> namesAbsent = findStudentsThatMeetRequirement(!PRESENT);
-        return namesAbsent;
+    public List<String> studentsAbsentInClass(boolean absent) {
+        return findPersonsAbsent(students, absent);
     }
 
     // MODIFIES: this
@@ -86,37 +81,38 @@ public class SundaySchoolClass {
         dailyClassTotal = 0;
     }
 
-    // EFFECTS: returns names of Teachers that meets the requirement
-    public List<String> findTeachersThatMeetRequirement(boolean meetsRequirement) {
+    // EFFECTS: returns names of Persons that are present
+    public List<String> findPersonsPresent(List<Person> persons, boolean meetsRequirement) {
         List<String> namesThatMeetRequirement = new ArrayList<>();
-        for (Teacher t : teachers) {
-            if (meetsRequirement) {
-                namesThatMeetRequirement.add(t.getName());
+        for (Person p : persons) {
+            if (p.getIsPresent()) {
+                namesThatMeetRequirement.add(p.getName());
             }
         }
         return namesThatMeetRequirement;
     }
 
-    // EFFECTS: returns names of Students that meets the requirement
-    public List<String> findStudentsThatMeetRequirement(boolean meetsRequirement) {
+    // EFFECTS: returns names of names of Persons that are absent
+    public List<String> findPersonsAbsent(List<Person> persons, boolean meetsRequirement) {
         List<String> namesThatMeetRequirement = new ArrayList<>();
-        for (Student s : students) {
-            if (meetsRequirement) {
-                namesThatMeetRequirement.add(s.getName());
+        for (Person p : persons) {
+            if (p.getIsPresent()) {
+                namesThatMeetRequirement.add(p.getName());
             }
         }
         return namesThatMeetRequirement;
     }
+
 
     public int getDailyClassTotal() {
         return dailyClassTotal;
     }
 
-    public List<Student> getStudents() {
+    public List<Person> getStudents() {
         return students;
     }
 
-    public List<Teacher> getTeachers() {
+    public List<Person> getTeachers() {
         return teachers;
     }
 
