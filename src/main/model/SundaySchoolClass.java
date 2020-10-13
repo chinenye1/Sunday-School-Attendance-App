@@ -55,25 +55,25 @@ public class SundaySchoolClass {
 
     // MODIFIES: this
     // EFFECTS: adds teacher to list of teachers
-    public void addTeacherToClass(Teacher teacher) {
+    public void addTeacherToClass(Person teacher) {
         teachers.add(teacher);
     }
 
     // MODIFIES: this
     // EFFECTS: adds student to list of students
-    public void addStudentToClass(Student student) {
+    public void addStudentToClass(Person student) {
         students.add(student);
     }
 
     // MODIFIES: this
     // EFFECTS: removes teacher from list of teachers
-    public void removeTeacherFromClass(Teacher teacher) {
+    public void removeTeacherFromClass(Person teacher) {
         teachers.remove(teacher);
     }
 
     // MODIFIES: this
     // EFFECTS: removes student from list of students
-    public void removeStudentFromClass(Student student) {
+    public void removeStudentFromClass(Person student) {
         students.remove(student);
     }
 
