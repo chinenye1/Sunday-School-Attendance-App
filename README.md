@@ -11,7 +11,8 @@ Users will be able to:
  - Add or remove both teachers and students
  - Take attendance of everyone in the class
 
-***Note:*** students' names and attendance in class will be taken only *after* individual or parental consent has been given.
+***Note:*** students' names and attendance in class will be taken only *after* individual or parental consent has been
+ given.
 
 #### Relevance of project to developer
 
@@ -29,7 +30,7 @@ as to create efficient carpool groups which minimize the distance that each driv
 - As a user, I want to be able to add/remove a student to/from a class
 - As a user, I want to be able to add/remove a teacher to/from a class
 - As a user, I want to be able to be able to view all the people (teacher and students) that are present in class
-- As a user, I want to be able to take attendance of the students and teachers present in class 
+- As a user, I want to be able to take attendance (i.e., count the number) of the students and teachers in class 
 - As a user, I want to be able to clear a class, as in to remove all teachers and students that are part of a class
 
 
