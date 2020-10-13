@@ -31,8 +31,7 @@ public class AttendanceApp {
 
             displayPeopleInClass();
             changeWhoIsInClass();
-//        takeAttendance();
-//        checkWhoIsInClass();
+           // takeAttendance();
 //        emptyClass();
         }
 
@@ -40,7 +39,7 @@ public class AttendanceApp {
 
     public void welcomeMessage() {
         System.out.println("Welcome to Sunday School! Use this application to create a Sunday School Class.");
-        System.out.println("once you have a class, you can add/remove teachers, take attendance and to empty a class.");
+        System.out.println("Once you have a class, you can add/remove teachers, take attendance and to empty a class.");
     }
 
     public void createAClass() {
@@ -76,16 +75,19 @@ public class AttendanceApp {
     }
 
     public void changeWhoIsInClass() {
-        System.out.println("Would you like to change who is in your class?");
+        System.out.println("Would you like to change who is in your class? \n y -> yes n -> no");
         if (input.next().toLowerCase().equals("y")) {
             System.out.println("would like like to add/remove? \n a -> add \n r -> remove");
-            if (input.next().toLowerCase().equals("a")) {
+            String response = input.next().toLowerCase();
+            if (response.equals("a")) {
                 addPersonsToClass("teacher");
                 addPersonsToClass("student");
-            } else if (input.next().toLowerCase().equals("r")) {
+            } else if (response.equals("r")) {
                 removePersonsFromClass("teacher");
                 removePersonsFromClass("student");
             }
+        } else if (input.next().toLowerCase().equals("n")) {
+            return;
         }
     }
 
@@ -93,19 +95,21 @@ public class AttendanceApp {
     // EFFECTS: asks user what operation(add or remove) they would like to perform to people in the class.
     public void doThisOperationWithPersons(String operation, String typeOfPerson) {
         System.out.println("Would you like to " + operation + " a " + typeOfPerson
-                + " to the class? \n y -> yes \n n -> no");
-        String wantsToAddPersonsToClass = input.next().toLowerCase();
+                + " ? \n y -> yes \n n -> no");
+        String whatUserWantsToDo = input.next().toLowerCase();
         int countNumPeople = 1;
 
-        if (wantsToAddPersonsToClass.equals("y")) {
+        if (whatUserWantsToDo.equals("y")) {
             System.out.println("What is " + typeOfPerson + "#" + countNumPeople + "'s name?");
+            //String nameOfPerson = input.next().toLowerCase();
             doThisOperationWithPerson(operation, input.next().toLowerCase(), typeOfPerson);
             while (keepAsking) {
                 System.out.println("Would you like " + operation + " another " + typeOfPerson
-                        + " to the class? \n y -> yes \n n -> no");
+                        + " ? \n y -> yes \n n -> no");
                 countNumPeople++;
                 if (input.next().toLowerCase().equals("y")) {
                     System.out.println("What is " + typeOfPerson + "#" + countNumPeople + "'s name?");
+                    //  nameOfPerson = input.next().toLowerCase();
                     doThisOperationWithPerson(operation, input.next().toLowerCase(), typeOfPerson);
                 } else {
                     break;
@@ -116,7 +120,7 @@ public class AttendanceApp {
 
     // REQUIRES: operation is either "add" or "remove", typeOfPerson is either "teacher" or "student"
     // EFFECTS: applies operation(adds or removes) person to or from the class
-    //          checks if the person is a teacher or student then applies the operations it to class appropriately
+    //          checks if the person is a teacher or student then applies the operations appropriately
     public void doThisOperationWithPerson(String operation, String name, String typeOfPerson) {
         if (operation.equals("add")) {
             if (typeOfPerson.equals("teacher")) {
@@ -125,16 +129,21 @@ public class AttendanceApp {
             } else if (typeOfPerson.equals("student")) {
                 someClass.addStudentToClass(new Student(name, true));
             }
-        } else {
+        } else if (operation.equals("add")) {
             if (typeOfPerson.equals("teacher")) {
-                someClass.removeTeacherFromClass(new Teacher(name, true));
-                new Teacher(typeOfPerson, true);
+                for (Person teacher : someClass.getTeachers()) {
+                    if (teacher.getName().equals(name)) {
+                        someClass.removeTeacherFromClass(teacher);
+                    }
+                }
             } else if (typeOfPerson.equals("student")) {
-                someClass.removeStudentFromClass(new Student(name, true));
+                for (Person student : someClass.getStudents()) {
+                    if (student.getName().equals(name)) {
+                        someClass.removeStudentFromClass(student);
+                    }
+                }
             }
         }
-
     }
-
 
 }
