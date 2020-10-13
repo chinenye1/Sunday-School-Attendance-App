@@ -7,8 +7,10 @@ import model.Teacher;
 
 import java.util.Scanner;
 
-// This is an app that enables one to take attendance of the entire class.
-// User is able to add and remove people in the class, as well as to view the people in the class.
+/*
+ * This is an app that enables one to take attendance of the entire class.
+ * User is able to add and remove people in the class, as well as to view the people in the class.
+ */
 public class AttendanceApp {
     private SundaySchoolClass myClass = null;
     private Scanner input;
@@ -18,14 +20,16 @@ public class AttendanceApp {
         startSundaySchool();
     }
 
-    // MODIFIES: this, myClass
+    // MODIFIES: this
     // EFFECTS: initializes the entire use of the app. From the welcome message, all the way to the app termination.
+    //          Note: if near the end user wants to start over, the app will start again (near the beginning),
+    //          and all class information will be preserved
     public void startSundaySchool() {
         welcomeMessage();
         boolean wantsToStartOver = true;
-
         input = new Scanner(System.in);
         createAClass();
+
         if (myClass == null) {
             System.out.println("Seems like you don't want a class. Goodbye!");
         } else {
@@ -37,20 +41,17 @@ public class AttendanceApp {
                 takeAttendance();
                 displayPeopleInClass();
                 emptyClass();
-
-                if (startOver() == true) {
+                if (startOver()) {
                     wantsToStartOver = true;
                 } else {
                     wantsToStartOver = false;
                 }
             }
         }
-
         stopUsingApp();
-
     }
 
-    // EFFECTS: displays an introductory message to user,let's them know of the app's functionality
+    // EFFECTS: displays an introductory message to user to let them know of the app's functionality
     public void welcomeMessage() {
         System.out.println("Welcome to Sunday School! Use this application to create a Sunday School Class.");
         System.out.println("Once you have a class, you can add/remove teachers, take attendance and to empty a class.");
@@ -60,7 +61,6 @@ public class AttendanceApp {
     //          User will be asked twice to make a class before proceeding.
     //          If user refuses to make a class, the application will shut down.
     public void createAClass() {
-        //int loop = 1;
         for (int loop = 1; loop < 3; loop++) {
             System.out.println("Would you like to create a Sunday School Class? \n y -> yes \n n -> no");
             if (input.next().toLowerCase().equals("y")) {
@@ -74,6 +74,7 @@ public class AttendanceApp {
     }
 
     // REQUIRES: typeOfPerson must be "teacher" or "student"
+    // MODIFIES: this
     // EFFECTS: adds specified type of person to the class
     public void addPersonsToClass(String typeOfPerson) {
         doThisOperationWithPersons("add", typeOfPerson);
@@ -88,7 +89,7 @@ public class AttendanceApp {
 
     // EFFECTS: displays the people in the class, if any. Teachers are listed first
     public void displayPeopleInClass() {
-        if (myClass.getTeachers().size() == 0 || myClass.getStudents().size() == 0) {
+        if (myClass.getTeachers().size() == 0 && myClass.getStudents().size() == 0) {
             System.out.println("You have no people in your class.");
         } else {
             System.out.println("These are the people in your class:");
@@ -141,9 +142,7 @@ public class AttendanceApp {
     }
 
     // MODIFIES: this
-    // EFFECTS: asks user if they would like to restart the app
-    //          if yes, the app is restarted, all class info is reset
-    //          else, user reaches the end of the app
+    // EFFECTS: asks and returns whether user would like to start from the beginning of the app
     public boolean startOver() {
         System.out.println("Would you like to start all over? \n y -> yes n -> no");
         if (input.next().toLowerCase().equals("y")) {
@@ -189,7 +188,7 @@ public class AttendanceApp {
 
     // REQUIRES: operation is either "add" or "remove", typeOfPerson is either "teacher" or "student"
     // MODIFIES: this
-    // EFFECTS: applies operation(adds or removes) person to or from the class
+    // EFFECTS: applies operation(adds or removes) person to or from the class.
     //          checks if the person is a teacher or student then applies the operations appropriately
     private void doThisOperationWithPerson(String operation, String name, String typeOfPerson) {
         if (operation.equals("add")) {

@@ -8,21 +8,14 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/*
+ * Unit tests for the SundaySchoolClass class
+ */
 class SundaySchoolClassTest {
     SundaySchoolClass aClass;
     List<Person> teachers;
     List<Person> students;
     boolean present = true;
-
-//        students.add(new Student("student1", present));
-//        students.add(new Student("student2", !present));
-//        students.add(new Student("student3", present));
-//        students.add(new Student("student4", !present));
-//
-//        teachers.add(new Teacher("teacher1", present));
-//        teachers.add(new Teacher("teacher2", !present));
-//        teachers.add(new Teacher("teacher3", present));
-//        teachers.add(new Teacher("teacher4", !present));
 
     @BeforeEach
     public void setUp() {
@@ -47,6 +40,7 @@ class SundaySchoolClassTest {
         aClass.takeAttendance();
         assertEquals(2, aClass.getDailyClassTotal());
     }
+
     @Test
     public void testTakeAttendanceOfSomeStudentsAndSomeTeachersPresent() {
         students.add(new Student("student1", present));
@@ -242,6 +236,7 @@ class SundaySchoolClassTest {
         aClass.removeTeacherFromClass(teacher1);
         assertEquals(0, teachers.size());
     }
+
     @Test
     public void testRemoveManyTeachersFromClassWhenManyTeachersInClass() {
         Teacher teacher1 = new Teacher("teacher1", present);
@@ -291,6 +286,7 @@ class SundaySchoolClassTest {
         aClass.removeStudentFromClass(student1);
         assertEquals(0, students.size());
     }
+
     @Test
     public void testRemoveOneStudentFromClassWhenManyTeachersInClass() {
         Student student1 = new Student("student1", present);
@@ -309,7 +305,7 @@ class SundaySchoolClassTest {
     }
 
     @Test
-    public void testEmptyClassWhenNoStudentOrTeacherListedInClass(){
+    public void testEmptyClassWhenNoStudentOrTeacherListedInClass() {
         assertEquals(0, students.size());
         assertEquals(0, teachers.size());
         aClass.emptyClass();
@@ -319,7 +315,7 @@ class SundaySchoolClassTest {
     }
 
     @Test
-    public void testEmptyClassWhenOneStudentAndOneTeacherListedInClass(){
+    public void testEmptyClassWhenOneStudentAndOneTeacherListedInClass() {
         students.add(new Student("student1", !present));
         teachers.add(new Teacher("teacher1", present));
         assertEquals(1, students.size());
@@ -331,7 +327,7 @@ class SundaySchoolClassTest {
     }
 
     @Test
-    public void testEmptyClassWhenManyStudentAndTeachersListedInClass(){
+    public void testEmptyClassWhenManyStudentAndTeachersListedInClass() {
         students.add(new Student("student1", present));
         students.add(new Student("student2", !present));
         students.add(new Student("student3", present));

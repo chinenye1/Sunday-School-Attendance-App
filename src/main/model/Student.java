@@ -1,6 +1,8 @@
 package model;
 
-// Represents a student in a Sunday School class
+/*
+ * Represents a student in a Sunday School class
+ */
 public class Student extends Person {
 
     // EFFECTS: creates a student with specified name and

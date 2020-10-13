@@ -3,8 +3,10 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-// Represents a sunday school class with a teacher and a list of students; the class starts empty.
-// Class behaviour entails typical activities in a sunday school class.
+/*
+ * Represents a sunday school class with a teacher and a list of students; the class starts empty.
+ * Class behaviour entails typical activities in a sunday school class.
+ */
 public class SundaySchoolClass {
     private static final boolean IS_PRESENT = true;
 
@@ -67,12 +69,14 @@ public class SundaySchoolClass {
         students.add(student);
     }
 
+    // REQUIRES: teachers isn't empty
     // MODIFIES: this
     // EFFECTS: removes teacher from list of teachers
     public void removeTeacherFromClass(Person teacher) {
         teachers.remove(teacher);
     }
 
+    // REQUIRES: students isn't empty
     // MODIFIES: this
     // EFFECTS: removes student from list of students
     public void removeStudentFromClass(Person student) {
