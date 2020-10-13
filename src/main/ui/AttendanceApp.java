@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class AttendanceApp {
     private SundaySchoolClass myClass = null;
     private Scanner input;
-    private boolean keepAsking;
+    private boolean keepAsking = true;
 
     public AttendanceApp() {
         startSundaySchool();
@@ -22,23 +22,30 @@ public class AttendanceApp {
     // EFFECTS: initializes the entire use of the app. From the welcome message, all the way to the app termination.
     public void startSundaySchool() {
         welcomeMessage();
-        keepAsking = true;
+        boolean wantsToStartOver = true;
 
         input = new Scanner(System.in);
         createAClass();
         if (myClass == null) {
             System.out.println("Seems like you don't want a class. Goodbye!");
         } else {
-            addPersonsToClass("teacher");
-            addPersonsToClass("student");
+            while (wantsToStartOver) {
+                addPersonsToClass("teacher");
+                addPersonsToClass("student");
+                displayPeopleInClass();
+                changeWhoIsInClass();
+                takeAttendance();
+                displayPeopleInClass();
+                emptyClass();
 
-            displayPeopleInClass();
-            changeWhoIsInClass();
-            takeAttendance();
-            displayPeopleInClass();
-            emptyClass();
-            startOver();
+                if (startOver() == true) {
+                    wantsToStartOver = true;
+                } else {
+                    wantsToStartOver = false;
+                }
+            }
         }
+
         stopUsingApp();
 
     }
@@ -137,12 +144,13 @@ public class AttendanceApp {
     // EFFECTS: asks user if they would like to restart the app
     //          if yes, the app is restarted, all class info is reset
     //          else, user reaches the end of the app
-    public void startOver() {
+    public boolean startOver() {
         System.out.println("Would you like to start all over? \n y -> yes n -> no");
         if (input.next().toLowerCase().equals("y")) {
-            startSundaySchool();
+            return true;
         } else {
             System.out.println("You have no more options.");
+            return false;
         }
     }
 
