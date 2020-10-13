@@ -19,7 +19,6 @@ public class AttendanceApp {
     public void startSundaySchool() {
         welcomeMessage();
         keepAsking = true;
-        String response = null;
 
         input = new Scanner(System.in);
         createAClass();
@@ -31,8 +30,10 @@ public class AttendanceApp {
 
             displayPeopleInClass();
             changeWhoIsInClass();
-           // takeAttendance();
-//        emptyClass();
+            takeAttendance();
+            emptyClass();
+            startOver();
+            stopUsingApp();
         }
 
     }
@@ -86,30 +87,59 @@ public class AttendanceApp {
                 removePersonsFromClass("teacher");
                 removePersonsFromClass("student");
             }
-        } else if (input.next().toLowerCase().equals("n")) {
-            return;
         }
     }
+
+    public void takeAttendance() {
+        System.out.println("would you like to take attendance and find out how many (including teachers) "
+                + "are present in class? \n y -> yes n -> no");
+        if (input.next().toLowerCase().equals("y")) {
+            someClass.takeAttendance();
+            System.out.println("Attendance done! There are " + someClass.getDailyClassTotal() + " present today.");
+        }
+    }
+
+    public void emptyClass() {
+        System.out.println("Would you like to empty your classroom?");
+        if (input.next().toLowerCase().equals("y")) {
+            someClass.emptyClass();
+            System.out.println("Class is over! There are " + someClass.getDailyClassTotal() + " currently in class!");
+        } else {
+            System.out.println("You have no more options.");
+        }
+    }
+
+    public void startOver() {
+        System.out.println("Would you like to start all over? \n y -> yes n -> no");
+        if (input.next().toLowerCase().equals("y")) {
+            startSundaySchool();
+        }
+    }
+
+    public void stopUsingApp() {
+        System.out.println("Sunday School Attendance App is shutting down now. Goodbye!");
+    }
+
+
+
 
     // REQUIRES: operation is either "add" or "remove", typeOfPerson is either "teacher" or "student"
     // EFFECTS: asks user what operation(add or remove) they would like to perform to people in the class.
     public void doThisOperationWithPersons(String operation, String typeOfPerson) {
         System.out.println("Would you like to " + operation + " a " + typeOfPerson
-                + " ? \n y -> yes \n n -> no");
+                + "? \n y -> yes \n n -> no");
         String whatUserWantsToDo = input.next().toLowerCase();
         int countNumPeople = 1;
 
         if (whatUserWantsToDo.equals("y")) {
             System.out.println("What is " + typeOfPerson + "#" + countNumPeople + "'s name?");
-            //String nameOfPerson = input.next().toLowerCase();
             doThisOperationWithPerson(operation, input.next().toLowerCase(), typeOfPerson);
             while (keepAsking) {
                 System.out.println("Would you like " + operation + " another " + typeOfPerson
-                        + " ? \n y -> yes \n n -> no");
+                        + "? \n y -> yes \n n -> no");
                 countNumPeople++;
                 if (input.next().toLowerCase().equals("y")) {
                     System.out.println("What is " + typeOfPerson + "#" + countNumPeople + "'s name?");
-                    //  nameOfPerson = input.next().toLowerCase();
                     doThisOperationWithPerson(operation, input.next().toLowerCase(), typeOfPerson);
                 } else {
                     break;
@@ -129,7 +159,7 @@ public class AttendanceApp {
             } else if (typeOfPerson.equals("student")) {
                 someClass.addStudentToClass(new Student(name, true));
             }
-        } else if (operation.equals("add")) {
+        } else if (operation.equals("remove")) {
             if (typeOfPerson.equals("teacher")) {
                 for (Person teacher : someClass.getTeachers()) {
                     if (teacher.getName().equals(name)) {
