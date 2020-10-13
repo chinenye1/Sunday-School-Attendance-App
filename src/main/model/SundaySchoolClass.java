@@ -6,6 +6,8 @@ import java.util.List;
 // Represents a sunday school class with a teacher and a list of students; the class starts empty.
 // Class behaviour entails typical activities in a sunday school class.
 public class SundaySchoolClass {
+    private static final boolean IS_PRESENT = true;
+
     private int dailyClassTotal;
     private List<Person> students;
     private List<Person> teachers;
@@ -34,23 +36,23 @@ public class SundaySchoolClass {
 
     // EFFECTS: returns names of Teachers present in class today
     public List<String> teachersPresentInClass() {
-        return findPersonsPresent(teachers);
+        return findPersonThatMeetsRequirement(teachers, IS_PRESENT);
     }
 
     // EFFECTS: returns names of Teachers Absent in class today
     public List<String> teachersAbsentInClass() {
-        return findPersonsAbsent(teachers);
+        return findPersonThatMeetsRequirement(teachers, !IS_PRESENT);
     }
 
 
     // EFFECTS: returns names of Students present in class today
     public List<String> studentsPresentInClass() {
-        return findPersonsPresent(students);
+        return findPersonThatMeetsRequirement(students, IS_PRESENT);
     }
 
     // EFFECTS: returns names of Teachers Absent in class today
     public List<String> studentsAbsentInClass() {
-        return findPersonsAbsent(students);
+        return findPersonThatMeetsRequirement(students, !IS_PRESENT);
     }
 
     // MODIFIES: this
@@ -87,21 +89,10 @@ public class SundaySchoolClass {
     }
 
     // EFFECTS: returns names of Persons that are present
-    private List<String> findPersonsPresent(List<Person> persons) {
+    private List<String> findPersonThatMeetsRequirement(List<Person> persons, boolean isPresent) {
         List<String> namesThatMeetRequirement = new ArrayList<>();
         for (Person p : persons) {
-            if (p.getIsPresent() == true) {
-                namesThatMeetRequirement.add(p.getName());
-            }
-        }
-        return namesThatMeetRequirement;
-    }
-
-    // EFFECTS: returns names of names of Persons that are absent
-    private List<String> findPersonsAbsent(List<Person> persons) {
-        List<String> namesThatMeetRequirement = new ArrayList<>();
-        for (Person p : persons) {
-            if (p.getIsPresent() == false) {
+            if (p.getIsPresent() == isPresent) {
                 namesThatMeetRequirement.add(p.getName());
             }
         }

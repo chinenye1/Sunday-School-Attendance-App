@@ -8,7 +8,7 @@ import model.Teacher;
 import java.util.Scanner;
 
 public class AttendanceApp {
-    private SundaySchoolClass someClass = null;
+    private SundaySchoolClass myClass = null;
     private Scanner input;
     private boolean keepAsking;
 
@@ -22,7 +22,7 @@ public class AttendanceApp {
 
         input = new Scanner(System.in);
         createAClass();
-        if (someClass == null) {
+        if (myClass == null) {
             System.out.println("Seems like you don't want a class. Goodbye!");
         } else {
             addPersonsToClass("teacher");
@@ -31,6 +31,7 @@ public class AttendanceApp {
             displayPeopleInClass();
             changeWhoIsInClass();
             takeAttendance();
+            displayPeopleInClass();
             emptyClass();
             startOver();
             stopUsingApp();
@@ -48,7 +49,7 @@ public class AttendanceApp {
         for (int loop = 1; loop < 3; loop++) {
             System.out.println("Would you like to create a Sunday School Class? \n y -> yes \n n -> no");
             if (input.next().toLowerCase().equals("y")) {
-                someClass = new SundaySchoolClass();
+                myClass = new SundaySchoolClass();
                 System.out.println("Your class has been created, and is currently empty.");
                 break;
             } else {
@@ -67,10 +68,10 @@ public class AttendanceApp {
 
     public void displayPeopleInClass() {
         System.out.println("These are the people in your class:");
-        for (Person teacher : someClass.getTeachers()) {
+        for (Person teacher : myClass.getTeachers()) {
             System.out.println("Teacher: " + teacher.getName());
         }
-        for (Person student : someClass.getStudents()) {
+        for (Person student : myClass.getStudents()) {
             System.out.println("Student: " + student.getName());
         }
     }
@@ -92,20 +93,18 @@ public class AttendanceApp {
 
     public void takeAttendance() {
         System.out.println("would you like to take attendance and find out how many (including teachers) "
-                + "are present in class? \n y -> yes n -> no");
+                + "are present in class? \n y -> yes \nn -> no");
         if (input.next().toLowerCase().equals("y")) {
-            someClass.takeAttendance();
-            System.out.println("Attendance done! There are " + someClass.getDailyClassTotal() + " present today.");
+            myClass.takeAttendance();
+            System.out.println("Attendance done! There are " + myClass.getDailyClassTotal() + " present today.");
         }
     }
 
     public void emptyClass() {
-        System.out.println("Would you like to empty your classroom?");
+        System.out.println("Would you like to empty your classroom? \n y -> yes n -> no");
         if (input.next().toLowerCase().equals("y")) {
-            someClass.emptyClass();
-            System.out.println("Class is over! There are " + someClass.getDailyClassTotal() + " currently in class!");
-        } else {
-            System.out.println("You have no more options.");
+            myClass.emptyClass();
+            System.out.println("Class is over! There are " + myClass.getDailyClassTotal() + " currently in class!");
         }
     }
 
@@ -113,14 +112,14 @@ public class AttendanceApp {
         System.out.println("Would you like to start all over? \n y -> yes n -> no");
         if (input.next().toLowerCase().equals("y")) {
             startSundaySchool();
+        }  else {
+            System.out.println("You have no more options.");
         }
     }
 
     public void stopUsingApp() {
         System.out.println("Sunday School Attendance App is shutting down now. Goodbye!");
     }
-
-
 
 
     // REQUIRES: operation is either "add" or "remove", typeOfPerson is either "teacher" or "student"
@@ -148,28 +147,31 @@ public class AttendanceApp {
         }
     }
 
+
     // REQUIRES: operation is either "add" or "remove", typeOfPerson is either "teacher" or "student"
     // EFFECTS: applies operation(adds or removes) person to or from the class
     //          checks if the person is a teacher or student then applies the operations appropriately
     public void doThisOperationWithPerson(String operation, String name, String typeOfPerson) {
         if (operation.equals("add")) {
             if (typeOfPerson.equals("teacher")) {
-                someClass.addTeacherToClass(new Teacher(name, true));
-                new Teacher(typeOfPerson, true);
+                myClass.addTeacherToClass(new Teacher(name, true));
+                //new Teacher(typeOfPerson, true);
             } else if (typeOfPerson.equals("student")) {
-                someClass.addStudentToClass(new Student(name, true));
+                myClass.addStudentToClass(new Student(name, true));
             }
         } else if (operation.equals("remove")) {
             if (typeOfPerson.equals("teacher")) {
-                for (Person teacher : someClass.getTeachers()) {
+                for (Person teacher : myClass.getTeachers()) {
                     if (teacher.getName().equals(name)) {
-                        someClass.removeTeacherFromClass(teacher);
+                        myClass.removeTeacherFromClass(teacher);
+                        break;
                     }
                 }
             } else if (typeOfPerson.equals("student")) {
-                for (Person student : someClass.getStudents()) {
+                for (Person student : myClass.getStudents()) {
                     if (student.getName().equals(name)) {
-                        someClass.removeStudentFromClass(student);
+                        myClass.removeStudentFromClass(student);
+                        break;
                     }
                 }
             }

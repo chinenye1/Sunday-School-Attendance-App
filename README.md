@@ -15,18 +15,18 @@ Attendance is recorded on paper and then student's information are transferred t
 software to determine trends in attendance fluctuations (amongst other things). Also, the process of grouping sunday 
 school students and volunteer drivers, continues to be done inefficiently. It is the developer's hope to utilize this
 application to optimize the attendance collection process, such that eventually, the 
-application could be extended to provide various graphical depictions of the sunday school class's progress, as well as to 
-create efficient carpool groups which minimize the distance that each driver has to drive.
+application could be extended to provide various graphical depictions of the sunday school class's progress, as well 
+as to create efficient carpool groups which minimize the distance that each driver has to drive.
  
  #### User Stories
-- As a user, I want to be able to create a sunday school class with space for a teacher and a list of students 
+- As a user, I want to be able to create a sunday school class with space for a list of teachers and a list of students 
 (no fixed size)
 - As a user, I want to be able to add/remove a student to/from a class
 - As a user, I want to be able to add/remove a teacher to/from a class
 - As a user, I want to be able to be able to view all the people (teacher and students) that are part of a class
 - As a user, I want to be able to take attendance of the students present in class 
-- As a user, I want to be able to empty a class, as in to remove all teachers and students that are part of a class
-- As a user, I want to be able to see which of the students and teachers were present in class, and which were not
+- As a user, I want to be able to clear a class, as in to remove all teachers and students that are part of a class
+- As a user, I want to be able to see which of the students and teachers were present in class
 
 
   
