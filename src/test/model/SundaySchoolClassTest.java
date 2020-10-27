@@ -3,7 +3,6 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,10 +15,12 @@ class SundaySchoolClassTest {
     List<Person> teachers;
     List<Person> students;
     boolean present = true;
+    String name = "general";
+    Category category = Category.PRESCHOOL;
 
     @BeforeEach
     public void setUp() {
-        aClass = new SundaySchoolClass();
+        aClass = new SundaySchoolClass(name, category);
         teachers = aClass.getTeachers();
         students = aClass.getStudents();
     }

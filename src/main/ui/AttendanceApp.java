@@ -1,9 +1,6 @@
 package ui;
 
-import model.Person;
-import model.Student;
-import model.SundaySchoolClass;
-import model.Teacher;
+import model.*;
 
 import java.util.Scanner;
 
@@ -61,10 +58,14 @@ public class AttendanceApp {
     //          User will be asked twice to make a class before proceeding.
     //          If user refuses to make a class, the application will shut down.
     public void createAClass() {
-        for (int loop = 1; loop < 3; loop++) {
+        String nameOfClass;
+        Category classCategory;
+        for (int i = 0; i < 2; i++) {
             System.out.println("Would you like to create a Sunday School Class? \n y -> yes \n n -> no");
             if (input.next().toLowerCase().equals("y")) {
-                myClass = new SundaySchoolClass();
+                nameOfClass = askForClassName();
+                classCategory = askForClassCategory();
+                myClass = new SundaySchoolClass(nameOfClass, classCategory);
                 System.out.println("Your class has been created, and is currently empty.");
                 break;
             } else {
@@ -72,6 +73,38 @@ public class AttendanceApp {
             }
         }
     }
+
+    // EFFECTS: Asks user for name of their class
+    public String askForClassName() {
+        System.out.println("What is the name of the class? ");
+        return input.next();
+    }
+
+    // EFFECTS: Asks user for name of the class category
+    public Category askForClassCategory() {
+        System.out.println("What category does this class fall under?"
+                + "\n p -> PRESCHOOL"
+                + "\n e -> ELEMENTARY"
+                + "\n h -> HIGHSCHOOL"
+                + "\n a -> ADULT");
+        return createClassCategory(input.next().toLowerCase());
+    }
+
+    // EFFECTS: Maps user's input to corresponding category
+    public Category createClassCategory(String categoryEntry) {
+        if (categoryEntry.equals("p")) {
+            return Category.PRESCHOOL;
+        } else if (categoryEntry.equals("e")) {
+            return Category.ELEMENTARY;
+        } else if (categoryEntry.equals("h")) {
+            return Category.HIGHSCHOOL;
+        } else if (categoryEntry.equals("a")) {
+            return Category.ADULT;
+        } else {
+            return Category.OTHER;
+        }
+    }
+
 
     // REQUIRES: typeOfPerson must be "teacher" or "student"
     // MODIFIES: this
