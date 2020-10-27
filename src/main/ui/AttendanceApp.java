@@ -122,7 +122,7 @@ public class AttendanceApp {
 
     // EFFECTS: displays the number of people present in the class (including teachers)
     public void takeAttendance() {
-        System.out.println("would you like to take attendance and find out how many (including teachers) "
+        System.out.println("Would you like to take attendance and find out how many (including teachers) "
                 + "are present in class? \n y -> yes \nn -> no");
         if (input.next().toLowerCase().equals("y")) {
             myClass.takeAttendance();

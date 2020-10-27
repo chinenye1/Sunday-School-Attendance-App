@@ -1,5 +1,8 @@
 package model;
 
+import persistance.Writable;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,8 +10,11 @@ import java.util.List;
  * Represents a sunday school class with a teacher and a list of students; the class starts empty.
  * Class behaviour entails typical activities in a sunday school class.
  */
-public class SundaySchoolClass {
+public class SundaySchoolClass implements Writable {
     private static final boolean IS_PRESENT = true;
+
+    private String className;
+    private Category category;
 
     private int dailyClassTotal;
     private List<Person> students;
@@ -103,6 +109,7 @@ public class SundaySchoolClass {
         return namesThatMeetRequirement;
     }
 
+
     public int getDailyClassTotal() {
         return dailyClassTotal;
     }
@@ -113,5 +120,17 @@ public class SundaySchoolClass {
 
     public List<Person> getTeachers() {
         return teachers;
+    }
+
+    public void setClassName(String name) {
+        className = name;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", className);
+        json.put("category", category);
+        return json;
     }
 }
