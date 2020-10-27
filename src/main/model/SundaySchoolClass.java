@@ -133,4 +133,5 @@ public class SundaySchoolClass implements Writable {
         json.put("category", category);
         return json;
     }
+
 }
