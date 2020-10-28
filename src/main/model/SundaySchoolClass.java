@@ -13,9 +13,8 @@ import java.util.List;
 public class SundaySchoolClass implements Writable {
     private static final boolean IS_PRESENT = true;
 
-    private String className;  // TODO problem here
-    private Category category; // toJson() writes these two members out to json format but these members are never assigned
-
+    private String className;
+    private Category category;
     private int dailyClassTotal;
     private List<Person> students;
     private List<Person> teachers;
@@ -27,9 +26,6 @@ public class SundaySchoolClass implements Writable {
         this.teachers = new ArrayList<>();
         this.className = name;
         this.category = category;
-
-        // TODO
-        // constructor does not do anything with inputs name and category, did you mean to set the members to them?
     }
 
     // MODIFIES: this
