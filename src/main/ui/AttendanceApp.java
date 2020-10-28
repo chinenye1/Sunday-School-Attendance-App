@@ -2,18 +2,36 @@ package ui;
 
 import model.*;
 
+import java.io.File;
 import java.util.Scanner;
+
+import model.Category;
+import model.SundaySchoolClass;
+import model.WorkRoom;
+import persistence.JsonReader;
+import persistence.JsonWriter;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /*
  * This is an app that enables one to take attendance of the entire class.
  * User is able to add and remove people in the class, as well as to view the people in the class.
  */
 public class AttendanceApp {
-    private SundaySchoolClass myClass = null;
+    private SundaySchoolClass myClass;
     private Scanner input;
     private boolean keepAsking = true;
+    private static final String JSON_STORE = "./data/workroom.json";
+    private WorkRoom workRoom;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
-    public AttendanceApp() {
+    public AttendanceApp() throws FileNotFoundException {
+        input = new Scanner(System.in);
+        workRoom = new WorkRoom("Chi's workroom");
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         startSundaySchool();
     }
 
@@ -25,25 +43,12 @@ public class AttendanceApp {
         welcomeMessage();
         boolean wantsToStartOver = true;
         input = new Scanner(System.in);
-        createAClass();
+        chooseLoadOrCreateClass();
 
         if (myClass == null) {
             System.out.println("Seems like you don't want a class. Goodbye!");
         } else {
-            while (wantsToStartOver) {
-                addPersonsToClass("teacher");
-                addPersonsToClass("student");
-                displayPeopleInClass();
-                changeWhoIsInClass();
-                takeAttendance();
-                displayPeopleInClass();
-                emptyClass();
-                if (startOver()) {
-                    wantsToStartOver = true;
-                } else {
-                    wantsToStartOver = false;
-                }
-            }
+            operateClassRoom(wantsToStartOver);
         }
         stopUsingApp();
     }
@@ -74,12 +79,52 @@ public class AttendanceApp {
         }
     }
 
+    public void operateClassRoom(boolean wantsToStartOver) {
+        while (wantsToStartOver) {
+            addPersonsToClass("teacher");
+            addPersonsToClass("student");
+            displayPeopleInClass();
+            changeWhoIsInClass();
+            takeAttendance();
+            emptyClass();
+            askToSaveWorkroom();
+            if (startOver()) {
+                wantsToStartOver = true;
+            } else {
+                wantsToStartOver = false;
+            }
+        }
+    }
+
+    // EFFECTS: asks user if they would like to save the current class
+    //          if so, the class will be save to the workroom
+    public void askToSaveWorkroom() {
+        System.out.println("Would you like to save this class? \n y -> yes \n n -> no");
+        if (input.next().toLowerCase().equals("y")) {
+            saveWorkRoom();
+        }
+    }
+
+    // REQUIRES: Workroom is not empty
+    // EFFECTS: asks user if they would like to load a previous class
+    //          if so, the class will be loaded from the workroom
+    public void chooseLoadOrCreateClass() {
+        System.out.println("Would you like to load a previous class? \n y -> yes \n n -> no");
+        if (input.next().toLowerCase().equals("y")) {
+            loadWorkRoom();
+        } else {
+            createAClass();
+        }
+    }
+
+    // MODIFIES: SundaySchoolClass instance
     // EFFECTS: Asks user for name of their class
     public String askForClassName() {
         System.out.println("What is the name of the class? ");
         return input.next();
     }
 
+    // MODIFIES: SundaySchoolClass instance
     // EFFECTS: Asks user for name of the class category
     public Category askForClassCategory() {
         System.out.println("What category does this class fall under?"
@@ -247,6 +292,29 @@ public class AttendanceApp {
                     }
                 }
             }
+        }
+    }
+
+    // EFFECTS: saves the workroom to file
+    private void saveWorkRoom() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(workRoom);
+            jsonWriter.close();
+            System.out.println("Saved " + workRoom.getName() + " to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads workroom from file
+    private void loadWorkRoom() {
+        try {
+            workRoom = jsonReader.read();
+            System.out.println("Loaded " + workRoom.getName() + " from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
         }
     }
 

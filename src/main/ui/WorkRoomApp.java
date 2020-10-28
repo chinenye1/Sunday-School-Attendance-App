@@ -22,7 +22,7 @@
 //    // EFFECTS: constructs workroom and runs application
 //    public WorkRoomApp() throws FileNotFoundException {
 //        input = new Scanner(System.in);
-//        workRoom = new WorkRoom("Alex's workroom");
+//        workRoom = new WorkRoom("Chi's workroom");
 //        jsonWriter = new JsonWriter(JSON_STORE);
 //        jsonReader = new JsonReader(JSON_STORE);
 //        runWorkRoom();
