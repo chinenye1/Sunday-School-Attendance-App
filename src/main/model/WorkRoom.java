@@ -11,12 +11,12 @@ import java.util.List;
 // Represents a workroom having a collection of thingies
 public class WorkRoom implements Writable {
     private String name;
-    private List<SundaySchoolClass> sundaySchoolClass;
+    private List<SundaySchoolClass> sundaySchoolClasses;
 
     // EFFECTS: constructs workroom with a name and empty list of thingies
     public WorkRoom(String name) {
         this.name = name;
-        sundaySchoolClass = new ArrayList<SundaySchoolClass>();
+        sundaySchoolClasses = new ArrayList<SundaySchoolClass>();
     }
 
     public String getName() {
@@ -26,24 +26,24 @@ public class WorkRoom implements Writable {
     // MODIFIES: this
     // EFFECTS: adds thingy to this workroom
     public void addClassroom(SundaySchoolClass classRoom) {
-        sundaySchoolClass.add(classRoom);
+        sundaySchoolClasses.add(classRoom);
     }
 
     // EFFECTS: returns an unmodifiable list of thingies in this workroom
     public List<SundaySchoolClass> getSundaySchoolClasses() {
-        return Collections.unmodifiableList(sundaySchoolClass);
+        return Collections.unmodifiableList(sundaySchoolClasses);
     }
 
     // EFFECTS: returns number of thingies in this workroom
     public int numClassrooms() {
-        return sundaySchoolClass.size();
+        return sundaySchoolClasses.size();
     }
 
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("name", name);
-        json.put("thingies", thingiesToJson());
+        json.put("classes", thingiesToJson());
         return json;
     }
 
@@ -51,7 +51,7 @@ public class WorkRoom implements Writable {
     private JSONArray thingiesToJson() {
         JSONArray jsonArray = new JSONArray();
 
-        for (SundaySchoolClass t : sundaySchoolClass) {
+        for (SundaySchoolClass t : sundaySchoolClasses) {
             jsonArray.put(t.toJson());
         }
 
