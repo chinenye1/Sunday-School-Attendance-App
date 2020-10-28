@@ -2,7 +2,7 @@ package ui;
 
 import model.*;
 
-import java.io.File;
+import java.util.List;
 import java.util.Scanner;
 
 import model.Category;
@@ -26,6 +26,7 @@ public class AttendanceApp {
     private WorkRoom workRoom;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
+    private boolean wantsToStartOver = true;
 
     public AttendanceApp() throws FileNotFoundException {
         input = new Scanner(System.in);
@@ -41,17 +42,75 @@ public class AttendanceApp {
     //          and all class information will be preserved
     public void startSundaySchool() {
         welcomeMessage();
-        boolean wantsToStartOver = true;
+        wantsToStartOver = true;
         input = new Scanner(System.in);
         chooseLoadOrCreateClass();
+        runWorkRoom();
 
         if (myClass == null) {
             System.out.println("Seems like you don't want a class. Goodbye!");
         } else {
-            operateClassRoom(wantsToStartOver);
+            operateClassRoom();
         }
         stopUsingApp();
     }
+
+
+    // MODIFIES: this
+    // EFFECTS: processes user input
+    private void runWorkRoom() {
+        String command = null;
+        input = new Scanner(System.in);
+
+        while (true) {
+            displayMenu();
+            command = input.next().toLowerCase();
+            if (command.equals("a")) {
+                addAClass();
+                break;
+            } else if (command.equals("p")) {
+                printClasses();
+            } else if (command.equals("q")) {
+                break;
+            } else {
+                System.out.println("Selection not valid...");
+            }
+        }
+        operateClassRoom();
+
+    }
+
+    // EFFECTS: displays menu of options to user
+    private void displayMenu() {
+        System.out.println("\nSelect from:");
+        System.out.println("\ta -> add a class");
+        System.out.println("\tp -> print classes stored");
+        System.out.println("\tq -> quit");
+    }
+
+//    // MODIFIES: this
+//    // EFFECTS: processes user command
+//    private void processCommand(String command) {
+//        if (command.equals("a")) {
+//            addAClass();
+//            // operateClassRoom();
+//        } else if (command.equals("p")) {
+//            printClasses();
+//        } else {
+//            System.out.println("Selection not valid...");
+//        }
+//    }
+
+
+    // EFFECTS: prints all the thingies in workroom to the console
+    private void printClasses() {
+        List<SundaySchoolClass> classes = workRoom.getSundaySchoolClasses();
+
+        for (SundaySchoolClass t : classes) {
+            System.out.println(t.getClassName());
+        }
+    }
+
 
     // EFFECTS: displays an introductory message to user to let them know of the app's functionality
     public void welcomeMessage() {
@@ -62,24 +121,26 @@ public class AttendanceApp {
     // EFFECTS: creates a new SundaySchoolClass at the request of the user.
     //          User will be asked twice to make a class before proceeding.
     //          If user refuses to make a class, the application will shut down.
-    public void createAClass() {
+    public void addAClass() {
         String nameOfClass;
         Category classCategory;
         for (int i = 0; i < 2; i++) {
-            System.out.println("Would you like to create a Sunday School Class? \n y -> yes \n n -> no");
+            System.out.println("Would you like to add a Sunday School Class? \n y -> yes \n n -> no");
             if (input.next().toLowerCase().equals("y")) {
                 nameOfClass = askForClassName();
                 classCategory = askForClassCategory();
                 myClass = new SundaySchoolClass(nameOfClass, classCategory);
+                workRoom.addClassroom(myClass);
                 System.out.println("Your class has been created, and is currently empty.");
                 break;
             } else {
                 System.out.println("You must first make a class.");
+                stopUsingApp();
             }
         }
     }
 
-    public void operateClassRoom(boolean wantsToStartOver) {
+    public void operateClassRoom() {
         while (wantsToStartOver) {
             addPersonsToClass("teacher");
             addPersonsToClass("student");
@@ -88,12 +149,11 @@ public class AttendanceApp {
             takeAttendance();
             emptyClass();
             askToSaveWorkroom();
-            if (startOver()) {
-                wantsToStartOver = true;
-            } else {
+            if (!startOver()) {
                 wantsToStartOver = false;
             }
         }
+
     }
 
     // EFFECTS: asks user if they would like to save the current class
@@ -112,8 +172,6 @@ public class AttendanceApp {
         System.out.println("Would you like to load a previous class? \n y -> yes \n n -> no");
         if (input.next().toLowerCase().equals("y")) {
             loadWorkRoom();
-        } else {
-            createAClass();
         }
     }
 
