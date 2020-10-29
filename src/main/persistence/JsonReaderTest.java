@@ -28,7 +28,7 @@ class JsonReaderTest extends JsonTest {
         persistence.JsonReader reader = new persistence.JsonReader("./data/testReaderEmptyWorkRoom.json");
         try {
             WorkRoom wr = reader.read();
-            assertEquals("My work room", wr.getName());
+            assertEquals("My Classrooms", wr.getName());
             assertEquals(0, wr.numClassrooms());
         } catch (IOException e) {
             fail("Couldn't read from file");
@@ -40,11 +40,11 @@ class JsonReaderTest extends JsonTest {
         JsonReader reader = new JsonReader("./data/testReaderGeneralWorkRoom.json");
         try {
             WorkRoom wr = reader.read();
-            assertEquals("My work room", wr.getName());
+            assertEquals("My Classrooms", wr.getName());
             List<SundaySchoolClass> classrooms = wr.getSundaySchoolClasses();
             assertEquals(2, classrooms.size());
-            checkClassroom("needle", Category.HIGHSCHOOL, classrooms.get(0));
-            checkClassroom("saw", Category.PRESCHOOL, classrooms.get(1));
+            checkClassroom("preschoolGirls", Category.PRESCHOOL, classrooms.get(0));
+            checkClassroom("grade10", Category.HIGHSCHOOL, classrooms.get(1));
         } catch (IOException e) {
             fail("Couldn't read from file");
         }

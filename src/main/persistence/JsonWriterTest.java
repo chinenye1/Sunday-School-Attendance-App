@@ -18,7 +18,6 @@ class JsonWriterTest extends persistence.JsonTest {
     @Test
     void testWriterInvalidFile() {
         try {
-            WorkRoom wr = new WorkRoom("My work room");
             persistence.JsonWriter writer = new persistence.JsonWriter("./data/my\0illegal:fileName.json");
             writer.open();
             fail("IOException was expected");

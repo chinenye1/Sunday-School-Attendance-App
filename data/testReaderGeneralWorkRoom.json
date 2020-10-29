@@ -1,0 +1,13 @@
+{
+  "classes": [
+    {
+      "name": "preschoolGirls",
+      "category": "PRESCHOOL"
+    },
+    {
+      "name": "grade10",
+      "category": "HIGHSCHOOL"
+    }
+  ],
+  "name": "My Classrooms"
+}

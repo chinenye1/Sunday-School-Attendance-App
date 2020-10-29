@@ -1,0 +1,13 @@
+{
+    "classes": [
+        {
+            "name": "gradeOne",
+            "category": "ELEMENTARY"
+        },
+        {
+            "name": "gradeTen",
+            "category": "HIGHSCHOOL"
+        }
+    ],
+    "name": "My work room"
+}
