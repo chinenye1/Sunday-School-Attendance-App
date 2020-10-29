@@ -1,7 +1,21 @@
 {
-    "classes": [{
-        "name": "jk",
-        "category": "PRESCHOOL"
-    }],
+    "classes": [
+        {
+            "name": "jk",
+            "category": "PRESCHOOL"
+        },
+        {
+            "name": "chi",
+            "category": "PRESCHOOL"
+        },
+        {
+            "name": "df",
+            "category": "ELEMENTARY"
+        },
+        {
+            "name": "ljl",
+            "category": "HIGHSCHOOL"
+        }
+    ],
     "name": "Chi's workroom"
 }

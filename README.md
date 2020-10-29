@@ -32,8 +32,8 @@ as to create efficient carpool groups which minimize the distance that each driv
 - As a user, I want to be able to be able to view all the people (teacher and students) that are present in class
 - As a user, I want to be able to take attendance (i.e., count the number) of the students and teachers in class 
 - As a user, I want to be able to clear a class, as in to remove all teachers and students that are part of a class
-- As a user, I want to be able to save a sunday school class data
-- As a user, I want to be able to be able to load my sunday school class from file 
+- As a user, I want to be able to save a sunday school class 
+- As a user, I want to be able to be able to load a previous sunday school class from file 
 
 
   

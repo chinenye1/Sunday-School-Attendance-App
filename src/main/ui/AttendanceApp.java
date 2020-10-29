@@ -29,6 +29,7 @@ public class AttendanceApp {
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
     private boolean wantsToStartOver = true;
+    private boolean classLoaded = false;
 
     public AttendanceApp() throws FileNotFoundException {
         input = new Scanner(System.in);
@@ -46,7 +47,7 @@ public class AttendanceApp {
         welcomeMessage();
         wantsToStartOver = true;
         input = new Scanner(System.in);
-        chooseLoadOrCreateClass();
+        askIfUserWantsToLoadPreviousClass();
         runWorkRoom();
 
         if (myClass == null) {
@@ -56,7 +57,6 @@ public class AttendanceApp {
         }
         stopUsingApp();
     }
-
 
     // MODIFIES: this
     // EFFECTS: processes user input
@@ -71,14 +71,17 @@ public class AttendanceApp {
                 addAClass();
                 break;
             } else if (command.equals("p")) {
-                printClasses();
-            } else if (command.equals("q")) {
-                break;
+                if (classLoaded) {
+                    printClasses();
+                    break;
+                }
+                System.out.println("You must first load a class to print it.");
+                askIfUserWantsToLoadPreviousClass();
             } else {
                 System.out.println("Selection not valid...");
             }
         }
-        operateClassRoom();
+        addAClass();
 
     }
 
@@ -93,13 +96,12 @@ public class AttendanceApp {
         System.out.println("\nSelect from:");
         System.out.println("\ta -> add a class");
         System.out.println("\tp -> print classes stored");
-        System.out.println("\tq -> quit");
     }
 
     // EFFECTS: prints all the classes in workroom to the console
     private void printClasses() {
         List<SundaySchoolClass> classes = workRoom.getSundaySchoolClasses();
-
+        System.out.println("These are your classes: ");
         for (SundaySchoolClass t : classes) {
             System.out.println(t.getClassName());
         }
@@ -121,8 +123,7 @@ public class AttendanceApp {
                 System.out.println("Your class has been created, and is currently empty.");
                 break;
             } else {
-                System.out.println("You must first make a class.");
-                stopUsingApp();
+                System.out.println("You must first make a class to proceed.");
             }
         }
     }
@@ -138,7 +139,7 @@ public class AttendanceApp {
             takeAttendance();
             emptyClass();
             askToSaveWorkroom();
-            if (!startOver()) {
+            if (!continueWithClass()) {
                 wantsToStartOver = false;
             }
         }
@@ -157,10 +158,11 @@ public class AttendanceApp {
     // MODIFIES: this
     // EFFECTS: asks user if they would like to load a previous class
     //          if so, the class will be loaded from the workroom
-    public void chooseLoadOrCreateClass() {
+    public void askIfUserWantsToLoadPreviousClass() {
         System.out.println("Would you like to load a previous class? \n y -> yes \n n -> no");
         if (input.next().toLowerCase().equals("y")) {
             loadWorkRoom();
+            classLoaded = true;
         }
     }
 
@@ -267,8 +269,8 @@ public class AttendanceApp {
 
     // MODIFIES: this
     // EFFECTS: asks and returns whether user would like to start from the beginning of the app
-    public boolean startOver() {
-        System.out.println("Would you like to start all over? \n y -> yes n -> no");
+    public boolean continueWithClass() {
+        System.out.println("Would you like to continue with this class? \n y -> yes n -> no");
         if (input.next().toLowerCase().equals("y")) {
             return true;
         } else {
@@ -318,7 +320,6 @@ public class AttendanceApp {
         if (operation.equals("add")) {
             if (typeOfPerson.equals("teacher")) {
                 myClass.addTeacherToClass(new Teacher(name, true));
-                //new Teacher(typeOfPerson, true);
             } else if (typeOfPerson.equals("student")) {
                 myClass.addStudentToClass(new Student(name, true));
             }
