@@ -22,11 +22,9 @@ class JsonReaderTest extends JsonTest {
         persistence.JsonReader reader = new persistence.JsonReader("./data/noSuchFile.json");
         try {
             WorkRoom wr = reader.read();
-            System.out.println("try testReaderNonExistentFile fails");
             fail("IOException expected");
         } catch (IOException e) {
             // pass
-            System.out.println("catch testReaderNonExistentFile fails");
         }
     }
 

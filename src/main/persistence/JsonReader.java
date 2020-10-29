@@ -52,7 +52,7 @@ public class JsonReader {
     }
 
     // MODIFIES: wr
-    // EFFECTS: parses thingies from JSON object and adds them to workroom
+    // EFFECTS: parses classes from JSON object and adds them to workroom
     private void addClassrooms(WorkRoom wr, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("classes");
         for (Object json : jsonArray) {
@@ -62,7 +62,7 @@ public class JsonReader {
     }
 
     // MODIFIES: wr
-    // EFFECTS: parses thingy from JSON object and adds it to workroom
+    // EFFECTS: parses class from JSON object and adds it to workroom
     private void addClassroom(WorkRoom wr, JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         Category category = Category.valueOf(jsonObject.getString("category"));

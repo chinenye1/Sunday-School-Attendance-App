@@ -82,7 +82,13 @@ public class AttendanceApp {
 
     }
 
-    // EFFECTS: displays menu of options to user
+    // EFFECTS: displays an introductory message to user to let them know of the app's functionality
+    public void welcomeMessage() {
+        System.out.println("Welcome to Sunday School! Use this application to create a Sunday School Class.");
+        System.out.println("Once you have a class, you can add/remove teachers, take attendance and to empty a class.");
+    }
+
+    // EFFECTS: displays menu of options for adding and storing classes to user
     private void displayMenu() {
         System.out.println("\nSelect from:");
         System.out.println("\ta -> add a class");
@@ -90,34 +96,13 @@ public class AttendanceApp {
         System.out.println("\tq -> quit");
     }
 
-//    // MODIFIES: this
-//    // EFFECTS: processes user command
-//    private void processCommand(String command) {
-//        if (command.equals("a")) {
-//            addAClass();
-//            // operateClassRoom();
-//        } else if (command.equals("p")) {
-//            printClasses();
-//        } else {
-//            System.out.println("Selection not valid...");
-//        }
-//    }
-
-
-    // EFFECTS: prints all the thingies in workroom to the console
+    // EFFECTS: prints all the classes in workroom to the console
     private void printClasses() {
         List<SundaySchoolClass> classes = workRoom.getSundaySchoolClasses();
 
         for (SundaySchoolClass t : classes) {
             System.out.println(t.getClassName());
         }
-    }
-
-
-    // EFFECTS: displays an introductory message to user to let them know of the app's functionality
-    public void welcomeMessage() {
-        System.out.println("Welcome to Sunday School! Use this application to create a Sunday School Class.");
-        System.out.println("Once you have a class, you can add/remove teachers, take attendance and to empty a class.");
     }
 
     // EFFECTS: creates a new SundaySchoolClass at the request of the user.
@@ -142,6 +127,8 @@ public class AttendanceApp {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: allows user to interact with the current class
     public void operateClassRoom() {
         while (wantsToStartOver) {
             addPersonsToClass("teacher");
@@ -155,9 +142,9 @@ public class AttendanceApp {
                 wantsToStartOver = false;
             }
         }
-
     }
 
+    // MODIFIES: this
     // EFFECTS: asks user if they would like to save the current class
     //          if so, the class will be save to the workroom
     public void askToSaveWorkroom() {
@@ -167,7 +154,7 @@ public class AttendanceApp {
         }
     }
 
-    // REQUIRES: Workroom is not empty
+    // MODIFIES: this
     // EFFECTS: asks user if they would like to load a previous class
     //          if so, the class will be loaded from the workroom
     public void chooseLoadOrCreateClass() {
@@ -209,7 +196,6 @@ public class AttendanceApp {
             return Category.OTHER;
         }
     }
-
 
     // REQUIRES: typeOfPerson must be "teacher" or "student"
     // MODIFIES: this
