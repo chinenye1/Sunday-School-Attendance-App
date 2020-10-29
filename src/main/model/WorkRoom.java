@@ -13,7 +13,7 @@ public class WorkRoom implements Writable {
     private String name;
     private List<SundaySchoolClass> sundaySchoolClasses;
 
-    // EFFECTS: constructs workroom with a name and empty list of thingies
+    // EFFECTS: constructs workroom with a name and empty list of classes
     public WorkRoom(String name) {
         this.name = name;
         sundaySchoolClasses = new ArrayList<SundaySchoolClass>();
@@ -24,7 +24,7 @@ public class WorkRoom implements Writable {
     }
 
     // MODIFIES: this
-    // EFFECTS: adds thingy to this workroom
+    // EFFECTS: adds a class to this workroom
     public void addClassroom(SundaySchoolClass classRoom) {
         sundaySchoolClasses.add(classRoom);
     }
@@ -34,7 +34,7 @@ public class WorkRoom implements Writable {
         return Collections.unmodifiableList(sundaySchoolClasses);
     }
 
-    // EFFECTS: returns number of thingies in this workroom
+    // EFFECTS: returns number of classes in this workroom
     public int numClassrooms() {
         return sundaySchoolClasses.size();
     }
@@ -43,12 +43,12 @@ public class WorkRoom implements Writable {
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("name", name);
-        json.put("classes", thingiesToJson());
+        json.put("classes", classesToJson());
         return json;
     }
 
-    // EFFECTS: returns things in this workroom as a JSON array
-    private JSONArray thingiesToJson() {
+    // EFFECTS: returns classes in this workroom as a JSON array
+    private JSONArray classesToJson() {
         JSONArray jsonArray = new JSONArray();
 
         for (SundaySchoolClass t : sundaySchoolClasses) {
