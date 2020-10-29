@@ -14,8 +14,10 @@ import persistence.JsonWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-/*
- * This is an app that enables one to take attendance of the entire class.
+/* This class was modeled after ui.WorkRoomApp class in:
+  https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
+
+ * This is an app that enables one to take attendance of the entire class. And save who was in class
  * User is able to add and remove people in the class, as well as to view the people in the class.
  */
 public class AttendanceApp {

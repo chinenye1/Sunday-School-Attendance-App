@@ -10,6 +10,11 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/*
+ This class was modeled after the persistence.JsonReaderTest class in:
+  https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
+ Tests the JsonReader class
+ */
 class JsonReaderTest extends JsonTest {
 
     @Test
@@ -17,9 +22,11 @@ class JsonReaderTest extends JsonTest {
         persistence.JsonReader reader = new persistence.JsonReader("./data/noSuchFile.json");
         try {
             WorkRoom wr = reader.read();
+            System.out.println("try testReaderNonExistentFile fails");
             fail("IOException expected");
         } catch (IOException e) {
             // pass
+            System.out.println("catch testReaderNonExistentFile fails");
         }
     }
 

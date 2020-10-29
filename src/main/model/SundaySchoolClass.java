@@ -131,7 +131,12 @@ public class SundaySchoolClass implements Writable {
         return category;
     }
 
+    /*
+ This method was modeled after the model.Thingy.toJson() method in model.thingy in:
+ https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
+ */
     @Override
+    // EFFECTS: returns string representation of this class
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("name", className);

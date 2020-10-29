@@ -8,7 +8,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-// Represents a workroom having a collection of thingies
+/*
+ This class was modeled after the model.WorkRoom class in: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
+ Represents a workroom having a collection of classes
+ */
 public class WorkRoom implements Writable {
     private String name;
     private List<SundaySchoolClass> sundaySchoolClasses;
@@ -29,7 +32,7 @@ public class WorkRoom implements Writable {
         sundaySchoolClasses.add(classRoom);
     }
 
-    // EFFECTS: returns an unmodifiable list of thingies in this workroom
+    // EFFECTS: returns an unmodifiable list of classes in this workroom
     public List<SundaySchoolClass> getSundaySchoolClasses() {
         return Collections.unmodifiableList(sundaySchoolClasses);
     }
