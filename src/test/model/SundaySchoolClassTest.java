@@ -225,7 +225,7 @@ class SundaySchoolClassTest {
     public void testRemoveOneTeacherFromClassWhenNoTeacherInClass() {
         Teacher teacher1 = new Teacher("teacher1", present);
         assertEquals(0, teachers.size());
-        aClass.removeTeacherFromClass(teacher1);
+        aClass.removeTeacherFromClass("teacher1");
         assertEquals(0, teachers.size());
     }
 
@@ -234,7 +234,7 @@ class SundaySchoolClassTest {
         Teacher teacher1 = new Teacher("teacher1", present);
         teachers.add(teacher1);
         assertEquals(1, teachers.size());
-        aClass.removeTeacherFromClass(teacher1);
+        aClass.removeTeacherFromClass("teacher1");
         assertEquals(0, teachers.size());
     }
 
@@ -249,8 +249,8 @@ class SundaySchoolClassTest {
         teachers.add(teacher3);
         teachers.add(teacher4);
         assertEquals(4, teachers.size());
-        aClass.removeTeacherFromClass(teacher3);
-        aClass.removeTeacherFromClass(teacher1);
+        aClass.removeTeacherFromClass("teacher3");
+        aClass.removeTeacherFromClass("teacher1");
         assertEquals(2, teachers.size());
     }
 
@@ -275,7 +275,7 @@ class SundaySchoolClassTest {
     public void testRemoveOneStudentFromClassWhenNoStudentInClass() {
         Student student1 = new Student("student1", present);
         assertEquals(0, students.size());
-        aClass.removeStudentFromClass(student1);
+        aClass.removeStudentFromClass("student1");
         assertEquals(0, students.size());
     }
 
@@ -284,7 +284,7 @@ class SundaySchoolClassTest {
         Student student1 = new Student("student1", present);
         assertEquals(0, students.size());
         students.add(student1);
-        aClass.removeStudentFromClass(student1);
+        aClass.removeStudentFromClass("student1");
         assertEquals(0, students.size());
     }
 
@@ -299,9 +299,9 @@ class SundaySchoolClassTest {
         students.add(student3);
         students.add(student4);
         assertEquals(4, students.size());
-        aClass.removeStudentFromClass(student1);
-        aClass.removeStudentFromClass(student2);
-        aClass.removeStudentFromClass(student3);
+        aClass.removeStudentFromClass("student1");
+        aClass.removeStudentFromClass("student2");
+        aClass.removeStudentFromClass("student3");
         assertEquals(1, students.size());
     }
 

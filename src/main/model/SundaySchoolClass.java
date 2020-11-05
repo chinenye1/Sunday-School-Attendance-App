@@ -64,6 +64,8 @@ public class SundaySchoolClass implements Writable {
         return findPersonThatMeetsRequirement(students, !IS_PRESENT);
     }
 
+    //TODO: MAKE A GENERIC ADD AND REMOVE METHOD FOR PERSON. AND REFACTOR/RENAME THE BELOW ADD AND REMOVE METHODS
+
     // MODIFIES: this
     // EFFECTS: adds teacher to list of teachers
     public void addTeacherToClass(Person teacher) {
@@ -79,15 +81,25 @@ public class SundaySchoolClass implements Writable {
     // REQUIRES: teachers isn't empty
     // MODIFIES: this
     // EFFECTS: removes teacher from list of teachers
-    public void removeTeacherFromClass(Person teacher) {
-        teachers.remove(teacher);
+    public void removeTeacherFromClass(String name) {
+        for (int i = 0; i < teachers.size(); i++) {
+            if (teachers.get(i).getName().equals(name)) {
+                teachers.remove(i);
+                break;
+            }
+        }
     }
 
     // REQUIRES: students isn't empty
     // MODIFIES: this
     // EFFECTS: removes student from list of students
-    public void removeStudentFromClass(Person student) {
-        students.remove(student);
+    public void removeStudentFromClass(String name) {
+        for (int i = 0; i < students.size(); i++) {
+            if (students.get(i).getName().equals(name)) {
+                students.remove(i);
+                break;
+            }
+        }
     }
 
     // MODIFIES: this
