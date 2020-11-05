@@ -1,25 +1,7 @@
 {
-    "classes": [
-        {
-            "name": "jk",
-            "category": "PRESCHOOL"
-        },
-        {
-            "name": "chi",
-            "category": "PRESCHOOL"
-        },
-        {
-            "name": "df",
-            "category": "ELEMENTARY"
-        },
-        {
-            "name": "ljl",
-            "category": "HIGHSCHOOL"
-        },
-        {
-            "name": "test",
-            "category": "ADULT"
-        }
-    ],
+    "classes": [{
+        "name": "khjh",
+        "category": "PRESCHOOL"
+    }],
     "name": "Chi's workroom"
 }
