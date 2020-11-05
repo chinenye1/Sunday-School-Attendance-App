@@ -21,7 +21,7 @@ import java.io.IOException;
  * User is able to add and remove people in the class, as well as to view the people in the class.
  */
 public class AttendanceApp {
-    //TODO: IMPROVE COHESIVENESS OF THIS CLASS BY CREATING OTHER CLASSES
+    //TODO: IMPROVE COHESIVENESS OF THIS CLASS BY CREATING OTHER CLASSES.
     private SundaySchoolClass myClass;
     private Scanner input;
     private static final String JSON_STORE = "./data/workroom.json";
