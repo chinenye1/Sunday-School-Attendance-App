@@ -201,34 +201,40 @@ public class AttendanceApp {
     // MODIFIES: this
     // EFFECTS: Asks and returns user's chosen class category for their current class
     public Category askForClassCategory() {
-        System.out.println("What category does this class fall under?"
-                + "\n p -> Pre School"
-                + "\n e -> Elementary"
-                + "\n h -> High School"
-                + "\n a -> Adult");
-        return createClassCategory(input.next().toLowerCase(),
-                listOfValidOptions("peha", 1));
+        String choice;
+        Category classCategory;
+        while (true) {
+            System.out.println("What category does this class fall under?"
+                    + "\n p -> Pre School"
+                    + "\n e -> Elementary"
+                    + "\n h -> High School"
+                    + "\n a -> Adult");
+            choice = input.next().toLowerCase();
+            if (validChoice(choice, listOfValidOptions("peha", 1))) {
+                classCategory = createClassCategory(choice);
+                break;
+            } else {
+                System.out.println("You must select a valid answer to continue");
+            }
+        }
+        return classCategory;
     }
 
+    // REQUIRES: categoryEntry is a valid option for categories
     // EFFECTS: Maps user's category input to a corresponding category
-    public Category createClassCategory(String categoryEntry, List<String> validOptions) {
-        if (validChoice(categoryEntry, validOptions)) {
-            switch (categoryEntry) {
-                case "p":
-                    return Category.PRESCHOOL;
-                case "e":
-                    return Category.ELEMENTARY;
-                case "h":
-                    return Category.HIGHSCHOOL;
-                case "a":
-                    return Category.ADULT;
-                case "other":
-                    return Category.OTHER;
-            }
-        } else {
-            System.out.println("You must select a valid answer to continue");
+    public Category createClassCategory(String categoryEntry) {
+        switch (categoryEntry) {
+            case "p":
+                return Category.PRESCHOOL;
+            case "e":
+                return Category.ELEMENTARY;
+            case "h":
+                return Category.HIGHSCHOOL;
+            case "a":
+                return Category.ADULT;
+            default:
+                return null;
         }
-        return Category.OTHER;
     }
 
     // MODIFIES: this
@@ -350,7 +356,7 @@ public class AttendanceApp {
     // EFFECTS: prints all the classes in the workroom
     private void printClasses() {
         List<SundaySchoolClass> classes = workRoom.getSundaySchoolClasses();
-        System.out.println("These are your classes: ");
+        System.out.println("These are your saved classes: ");
         for (SundaySchoolClass t : classes) {
             System.out.println(t.getClassName());
         }
