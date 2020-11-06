@@ -73,7 +73,7 @@ public class AttendanceApp {
     // MODIFIES: this
     // EFFECTS: Stores user choice between loading a previous class or creating a new one or quitting the app
     public void loadOldOrCreateNewOrQuitMenu() {
-        System.out.println("\nWhat would you like to do:"
+        System.out.println("\nWhat would you like to do?"
                 + "\n l -> Load a previous class?"
                 + "\n c -> Create a new class"
                 + "\n q -> Quit App");
