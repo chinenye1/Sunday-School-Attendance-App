@@ -12,8 +12,11 @@ import model.WorkRoom;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
+import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import javax.swing.JOptionPane;
+
 
 /* This class was modeled after ui.WorkRoomApp class in:
   https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
@@ -51,6 +54,7 @@ public class AttendanceApp {
     public void startSundaySchool() {
         welcomeMessage();
         input = new Scanner(System.in);
+        askToLoadPreviousClasses();
         boolean showLoadOldOrCreateNewOrQuitMenu = true;
         while (keepGoing) {
             if (showLoadOldOrCreateNewOrQuitMenu) {
@@ -63,6 +67,15 @@ public class AttendanceApp {
         }
     }
 
+    // EFFECTS: pop-up panel asks user if they would like to load the names of the previous classes.
+    public void askToLoadPreviousClasses() {
+        int answer = JOptionPane.showConfirmDialog(null, "Would you like to load a class?");
+        if (answer == 0) {
+            tryLoadingPreviousClass();
+        }
+    }
+
+
     // EFFECTS: Displays an introductory message to user to let them know of the app's functionality
     public void welcomeMessage() {
         System.out.println("Welcome to Sunday School! Use this application to load previous Sunday School Classes,"
@@ -74,7 +87,6 @@ public class AttendanceApp {
     // EFFECTS: Stores user choice between loading a previous class or creating a new one or quitting the app
     public void loadOldOrCreateNewOrQuitMenu() {
         System.out.println("\nWhat would you like to do?"
-                + "\n l -> Load a previous class?"
                 + "\n c -> Create a new class"
                 + "\n q -> Quit App");
         String answer = input.next().toLowerCase();
@@ -88,9 +100,6 @@ public class AttendanceApp {
     public void handleLoadOldOrCreateNewOrQuitChoice(String answer) {
         if (validChoice(answer, listOfValidOptions("lcq", 1))) {
             switch (answer) {
-                case "l":
-                    tryLoadingPreviousClass();
-                    break;
                 case "c":
                     addAClass();
                     classLoaded = true;
@@ -110,6 +119,7 @@ public class AttendanceApp {
         if (!classLoaded) {
             loadPreviousClassRoom();
             classLoaded = true;
+
         } else {
             System.out.println("Your previous class has already been loaded."
                     + "\nPlease choose a different option");
