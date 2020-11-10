@@ -178,7 +178,7 @@ public class AttendanceApp {
                 takeAttendance();
                 break;
             case "s":
-                saveClassRoom();
+                askToSaveCurrentClass();
                 break;
             case "p":
                 printClasses();
@@ -369,6 +369,14 @@ public class AttendanceApp {
         System.out.println("These are your saved classes: ");
         for (SundaySchoolClass t : classes) {
             System.out.println(t.getClassName());
+        }
+    }
+
+    // EFFECTS: pop-up panel asks user if they would like to load the names of the previous classes.
+    public void askToSaveCurrentClass() {
+        int answer = JOptionPane.showConfirmDialog(null, "Would you like to Save this class?");
+        if (answer == 0) {
+            saveClassRoom();
         }
     }
 
