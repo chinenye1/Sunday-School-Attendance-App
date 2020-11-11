@@ -12,7 +12,6 @@ import model.WorkRoom;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
-import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import javax.swing.JOptionPane;
@@ -33,6 +32,7 @@ public class AttendanceApp {
     private JsonReader jsonReader;
     private boolean keepGoing = true;
     private boolean classLoaded = false;
+    HandleAudio playAudio = new HandleAudio();
 
     public enum ClassOperation {
         ADD_TEACHER, REMOVE_TEACHER, ADD_STUDENT, REMOVE_STUDENT
@@ -381,12 +381,13 @@ public class AttendanceApp {
     }
 
     // MODIFIES: this
-    // EFFECTS: saves the current class room to WorkRoom
+    // EFFECTS: saves the current class room to WorkRoom, plays audio after saving
     private void saveClassRoom() {
         try {
             jsonWriter.open();
             jsonWriter.write(workRoom);
             jsonWriter.close();
+            playAudio.playAudio("C:\\Labs-210\\Week 1\\project_c1y2b\\data\\Music\\Missile_Launch Sound.wav");
             System.out.println("Saved " + workRoom.getName() + " to " + JSON_STORE);
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + JSON_STORE);
@@ -398,6 +399,7 @@ public class AttendanceApp {
     private void loadPreviousClassRoom() {
         try {
             workRoom = jsonReader.read();
+            playAudio.playAudio("C:\\Labs-210\\Week 1\\project_c1y2b\\data\\Music\\Elevator Ding Sound.wav");
             System.out.println("Loaded " + workRoom.getName() + " from " + JSON_STORE);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
