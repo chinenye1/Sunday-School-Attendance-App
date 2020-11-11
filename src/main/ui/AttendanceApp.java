@@ -88,21 +88,25 @@ public class AttendanceApp {
     public void loadOldOrCreateNewOrQuitMenu() {
         System.out.println("\nWhat would you like to do?"
                 + "\n c -> Create a new class"
+                + "\n p -> Print loaded classes"
                 + "\n q -> Quit App");
         String answer = input.next().toLowerCase();
-        handleLoadOldOrCreateNewOrQuitChoice(answer);
+        handleLoadOldOrCreateNewOrQuitChoice(answer, listOfValidOptions("cpq", 1));
     }
 
     // REQUIRES: answer is a valid choice/option
     // MODIFIES: this
     // EFFECTS: Either loads a new class, creates a new class or quits the app
     //          based on user's choice
-    public void handleLoadOldOrCreateNewOrQuitChoice(String answer) {
-        if (validChoice(answer, listOfValidOptions("lcq", 1))) {
+    public void handleLoadOldOrCreateNewOrQuitChoice(String answer, List<String> validOptions) {
+        if (validChoice(answer, validOptions)) {
             switch (answer) {
                 case "c":
                     addAClass();
                     classLoaded = true;
+                    break;
+                case "p":
+                    printClasses();
                     break;
                 case "q":
                     quitApp();
@@ -134,10 +138,10 @@ public class AttendanceApp {
                 + "\n c -> Change Who's In Class"
                 + "\n t -> Take Attendance"
                 + "\n s -> Save Class Room"
-                + "\n p -> Print previous classes"
                 + "\n e -> Empty Current Class"
                 + "\n q -> Quit App");
-        operateClassRoom(input.next().toLowerCase(), listOfValidOptions("adctspeq", 1));
+        String answer = input.next().toLowerCase();
+        operateClassRoom(answer, listOfValidOptions("adctseq", 1));
     }
 
     //  REQUIRES: lengthOfOptionSubstring > 0
@@ -179,9 +183,6 @@ public class AttendanceApp {
                 break;
             case "s":
                 askToSaveCurrentClass();
-                break;
-            case "p":
-                printClasses();
                 break;
             case "e":
                 emptyClass();
