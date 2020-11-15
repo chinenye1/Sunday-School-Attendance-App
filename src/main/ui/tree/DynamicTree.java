@@ -1,11 +1,16 @@
 package ui.tree;
 
 import javax.swing.*;
-import javax.swing.event.TreeModelEvent;
-import javax.swing.event.TreeModelListener;
 import javax.swing.tree.*;
 import java.awt.*;
 
+
+/**
+ * This class represents a mutable JTree with a root node and children nodes
+ *
+ * This class was modeled after the JTree example found on:
+ * http://www.java2s.com/Tutorials/Java/Swing_How_to/JTree/Add_insert_and_update_JTree.htm
+ */
 public class DynamicTree extends JPanel {
     DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode("Sunday School Class");
     DefaultTreeModel treeModel = new DefaultTreeModel(rootNode);
@@ -66,15 +71,18 @@ public class DynamicTree extends JPanel {
         return addObject(parentNode, child, true);
     }
 
-    // EFFECTS: continues to add an
+    // EFFECTS: returns a new childnode  that has been added below the parent node
     // TODO: Figure out what this method does
     public DefaultMutableTreeNode addObject(DefaultMutableTreeNode parent,
                                             Object child) {
         return addObject(parent, child, false);
     }
 
-    // EFFECTS: continues to add an
-    // TODO: Figure out what this method does
+    /** EFFECTS: makes a new child node and inserts it to the tree model under the parent node ,
+     *          if the parent node is null, then parent node becomes root node.
+     *          if the panel should be visible, it makes the scroll panel visible
+     *          returns the created childnode
+     */
     public DefaultMutableTreeNode addObject(DefaultMutableTreeNode parent,
                                             Object child, boolean shouldBeVisible) {
         DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(child);

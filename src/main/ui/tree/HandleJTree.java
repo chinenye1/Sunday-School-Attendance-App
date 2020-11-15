@@ -6,17 +6,16 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-/*ww  w.j ava2  s .co  m*/
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
- * This class deals with the
+ * This class deals with the user's events on the mutable JTree displayed
+ *
  * This class was modeled after the JTree example found on:
  * http://www.java2s.com/Tutorials/Java/Swing_How_to/JTree/Add_insert_and_update_JTree.htm
- *
  */
 public class HandleJTree extends JPanel implements ActionListener {
     int newNodeSuffix = 1;
@@ -62,7 +61,6 @@ public class HandleJTree extends JPanel implements ActionListener {
 
     // EFFECTS: Checks if an action (add/remove/clear) is performed
     //          and changes the tree accordingly
-
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
