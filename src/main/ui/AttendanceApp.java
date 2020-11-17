@@ -2,6 +2,8 @@ package ui;
 
 import model.*;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -14,12 +16,33 @@ import persistence.JsonWriter;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import javax.swing.*;
+
+import ui.tree.*;
+
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.tree.DefaultMutableTreeNode;
+
+import java.awt.HeadlessException;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import javax.swing.Icon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
-
-/* This class was modeled after ui.WorkRoomApp class in:
-  https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
-
+/**
+ * /* This class was modeled after ui.WorkRoomApp class in:
+ * https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
+ * <p>
  * This is an app that enables one to take attendance of the entire class. And save who was in class
  * User is able to add and remove people in the class, as well as to view the people in the class.
  */
@@ -32,7 +55,9 @@ public class AttendanceApp {
     private JsonReader jsonReader;
     private boolean keepGoing = true;
     private boolean classLoaded = false;
-    HandleAudio playAudio = new HandleAudio();
+    private HandleAudio playAudio = new HandleAudio();
+    //private HandleJTree handleJTree;
+    //private DynamicTree dynamicTree = new DynamicTree();
 
     public enum ClassOperation {
         ADD_TEACHER, REMOVE_TEACHER, ADD_STUDENT, REMOVE_STUDENT
@@ -78,9 +103,9 @@ public class AttendanceApp {
 
     // EFFECTS: Displays an introductory message to user to let them know of the app's functionality
     public void welcomeMessage() {
-        System.out.println("Welcome to Sunday School! Use this application to load previous Sunday School Classes,"
+        System.out.println("Welcome to Sunday School! \nUse this application to load previous Sunday School Classes,"
                 + "create a new Sunday School Class and save your current Sunday School Class."
-                + " \n Once you have a class, you can perform multiple operations on your class.");
+                + " \nOnce you have a class, you can perform multiple operations on your class.");
     }
 
     // MODIFIES: this
@@ -150,7 +175,7 @@ public class AttendanceApp {
     //           lengthOfOptionSubstring is how length of a valid option in the mergedOptions string
     public List<String> listOfValidOptions(String mergedOptions, int lengthOfOptionSubstring) {
         List<String> validOptions = new ArrayList<>();
-        for (int i = 0; i < mergedOptions.length(); i++) {
+        for (int i = 0; i < mergedOptions.length() / lengthOfOptionSubstring; i++) {
             validOptions.add(mergedOptions.substring(i, i + lengthOfOptionSubstring));
         }
         return validOptions;
@@ -296,11 +321,15 @@ public class AttendanceApp {
         String personName = getNameOfPerson();
         switch (change) {
             case ADD_STUDENT:
-                myClass.addStudentToClass(new Student(personName, true));
-                break;
             case ADD_TEACHER:
-                myClass.addTeacherToClass(new Student(personName, true));
+                startJTree();
                 break;
+//            case ADD_STUDENT:
+//                myClass.addStudentToClass(new Student(personName, true));
+//                break;
+//            case ADD_TEACHER:
+//                myClass.addTeacherToClass(new Student(personName, true));
+//                break;
             case REMOVE_STUDENT:
                 myClass.removeStudentFromClass(personName);
                 break;
@@ -309,6 +338,11 @@ public class AttendanceApp {
                 break;
         }
     }
+
+    public void startJTree() {
+        mainForJTree();
+    }
+
 
     // REQUIRES: validInputs is not empty
     // EFFECTS: checks if user input one of the offered menu options
@@ -405,6 +439,17 @@ public class AttendanceApp {
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }
+    }
+
+
+    public void mainForJTree() {
+        JFrame frame = new JFrame();
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        // TODO: take this line away
+        HandleJTree newContentPane = new HandleJTree(myClass);
+        frame.setContentPane(newContentPane);
+        frame.pack();
+        frame.setVisible(true);
     }
 
 }

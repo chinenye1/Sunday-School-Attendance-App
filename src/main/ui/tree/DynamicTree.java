@@ -1,5 +1,7 @@
 package ui.tree;
 
+import model.SundaySchoolClass;
+
 import javax.swing.*;
 import javax.swing.tree.*;
 import java.awt.*;
@@ -18,16 +20,18 @@ public class DynamicTree extends JPanel {
 
     /**
      * EFFECTS: creates new dynamic tree:
-     * with a JPanel of specified size
-     * sets JTree model with a default tree model (with a default tree node)
-     * made the tree editable
-     * a tree model listener
-     * visible root handles
-     * creates and adds scroll pane
+     *          with a JPanel of specified size
+     *          sets JTree model with a default tree model (with a default tree node)
+     *          made the tree editable
+     *          a tree model listener
+     *          visible root handles
+     *          creates and adds scroll pane
      */
-    public DynamicTree() {
+    public DynamicTree(SundaySchoolClass myclass) {
         super(new GridLayout(1, 0));
-        treeModel.addTreeModelListener(new MyTreeModelListener());
+        // TODO: pass in teachers and students lists into the MyTreeModelListener constructor and the
+        //  DynamicTree constructor found in AttendanceApp
+        treeModel.addTreeModelListener(new MyTreeModelListener(myclass));
         tree = new JTree(treeModel);
         tree.setEditable(true);
         tree.getSelectionModel().setSelectionMode(
@@ -72,7 +76,6 @@ public class DynamicTree extends JPanel {
     }
 
     // EFFECTS: returns a new childnode  that has been added below the parent node
-    // TODO: Figure out what this method does
     public DefaultMutableTreeNode addObject(DefaultMutableTreeNode parent,
                                             Object child) {
         return addObject(parent, child, false);
