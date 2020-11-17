@@ -350,4 +350,20 @@ class SundaySchoolClassTest {
         assertEquals(0, teachers.size());
         assertEquals(0, aClass.getDailyClassTotal());
     }
+
+    @Test
+    public void testSetName(){
+        teachers.add(new Teacher("t", true));
+        students.add(new Student("s", true));
+        assertEquals("t", teachers.get(0).getName());
+        assertEquals("s", students.get(0).getName());
+        teachers.get(0).setName("nt");
+        students.get(0).setName("ns");
+        Student newStudent = new Student("ns", true);
+        assertEquals("nt", teachers.get(0).getName());
+        assertEquals("ns", students.get(0).getName());
+
+
+
+    }
 }
