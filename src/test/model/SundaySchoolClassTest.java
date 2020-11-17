@@ -352,7 +352,7 @@ class SundaySchoolClassTest {
     }
 
     @Test
-    public void testSetName(){
+    public void testSetName() {
         teachers.add(new Teacher("t", true));
         students.add(new Student("s", true));
         assertEquals("t", teachers.get(0).getName());
@@ -362,7 +362,6 @@ class SundaySchoolClassTest {
         Student newStudent = new Student("ns", true);
         assertEquals("nt", teachers.get(0).getName());
         assertEquals("ns", students.get(0).getName());
-
 
 
     }
