@@ -15,7 +15,7 @@ public class HandleAudio {
     public HandleAudio() {
     }
 
-    public static void playAudio(String filepath) {
+    public void playAudio(String filepath) {
         InputStream music;
         try {
             music = new FileInputStream(new File(filepath));

@@ -2,42 +2,20 @@ package ui;
 
 import model.*;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
 import model.Category;
 import model.SundaySchoolClass;
 import model.WorkRoom;
 import persistence.JsonReader;
 import persistence.JsonWriter;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import javax.swing.*;
-
 import ui.tree.*;
-
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.tree.DefaultMutableTreeNode;
-
-import java.awt.HeadlessException;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
-import javax.swing.Icon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 
 /**
  * /* This class was modeled after ui.WorkRoomApp class in:
@@ -56,6 +34,7 @@ public class AttendanceApp {
     private boolean keepGoing = true;
     private boolean classLoaded = false;
     private HandleAudio playAudio = new HandleAudio();
+    private JFrame frame;
     //private HandleJTree handleJTree;
     //private DynamicTree dynamicTree = new DynamicTree();
 
@@ -112,28 +91,28 @@ public class AttendanceApp {
     // EFFECTS: Stores user choice between loading a previous class or creating a new one or quitting the app
     public void loadOldOrCreateNewOrQuitMenu() {
         System.out.println("\nWhat would you like to do?"
-                + "\n c -> Create a new class"
-                + "\n p -> Print loaded classes"
-                + "\n q -> Quit App");
-        String answer = input.next().toLowerCase();
-        handleLoadOldOrCreateNewOrQuitChoice(answer, listOfValidOptions("cpq", 1));
+                + "\n 1 -> Create a new class"
+                + "\n 2 -> Print loaded classes"
+                + "\n 3 -> Quit App");
+        int answer = Integer.parseInt(input.next().toLowerCase());
+        handleLoadOldOrCreateNewOrQuitChoice(answer, listOfValidOptions(3));
     }
 
     // REQUIRES: answer is a valid choice/option
     // MODIFIES: this
     // EFFECTS: Either loads a new class, creates a new class or quits the app
     //          based on user's choice
-    public void handleLoadOldOrCreateNewOrQuitChoice(String answer, List<String> validOptions) {
+    public void handleLoadOldOrCreateNewOrQuitChoice(int answer, List<Integer> validOptions) {
         if (validChoice(answer, validOptions)) {
             switch (answer) {
-                case "c":
+                case 1:
                     addAClass();
                     classLoaded = true;
                     break;
-                case "p":
+                case 2:
                     printClasses();
                     break;
-                case "q":
+                case 3:
                     quitApp();
                     break;
             }
@@ -158,25 +137,25 @@ public class AttendanceApp {
     // EFFECTS: Displays class operations options and performs the chosen operation
     public void displayClassRoomOperationMenu() {
         System.out.println("\nWhat would you like to do with this class? "
-                + "\n a -> Add/ Remove a Person "
-                + "\n d -> Display People in Class"
-                + "\n c -> Change Who's In Class"
-                + "\n t -> Take Attendance"
-                + "\n s -> Save Class Room"
-                + "\n e -> Empty Current Class"
-                + "\n q -> Quit App");
-        String answer = input.next().toLowerCase();
-        operateClassRoom(answer, listOfValidOptions("adctseq", 1));
+                + "\n 1 -> Add/ Remove a Person "
+                + "\n 2 -> Change Who's In Class"
+                + "\n 3 -> Display People in Class"
+                + "\n 4 -> Take Attendance"
+                + "\n 5 -> Save Class Room"
+                + "\n 6 -> Empty Current Class"
+                + "\n 7 -> Quit App");
+        int answer = Integer.parseInt(input.next().toLowerCase());
+        operateClassRoom(answer, listOfValidOptions(7));
     }
 
     //  REQUIRES: lengthOfOptionSubstring > 0
     //  EFFECTS: returns a list of valid options a user can input at a certain stage in the program
     //           mergedOptions is a list of the concatenated valid string options
     //           lengthOfOptionSubstring is how length of a valid option in the mergedOptions string
-    public List<String> listOfValidOptions(String mergedOptions, int lengthOfOptionSubstring) {
-        List<String> validOptions = new ArrayList<>();
-        for (int i = 0; i < mergedOptions.length() / lengthOfOptionSubstring; i++) {
-            validOptions.add(mergedOptions.substring(i, i + lengthOfOptionSubstring));
+    public List<Integer> listOfValidOptions(int numOfOptions) {
+        List<Integer> validOptions = new ArrayList<>();
+        for (int i = 1; i <= numOfOptions; i++) {
+            validOptions.add(i);
         }
         return validOptions;
     }
@@ -184,7 +163,7 @@ public class AttendanceApp {
     // EFFECTS: if user's choice is valid (one of offered choices)
     //              performs appropriate class operation based on user's choice.
     //          else asks user to enter a valid choice
-    public void operateClassRoom(String choice, List<String> validOptions) {
+    public void operateClassRoom(int choice, List<Integer> validOptions) {
         if (validChoice(choice, validOptions)) {
             doClassOperation(choice);
         } else {
@@ -194,25 +173,25 @@ public class AttendanceApp {
 
     // REQUIRES: choice is a valid option
     // EFFECTS: performs user's chosen operation on their current class
-    public void doClassOperation(String choice) {
+    public void doClassOperation(int choice) {
         switch (choice) {
-            case "a":
-            case "c":
+            case 1:
+            case 2:
                 addOrRemovePeopleInClassMenu();
                 break;
-            case "d":
+            case 3:
                 displayPeopleInClass();
                 break;
-            case "t":
+            case 4:
                 takeAttendance();
                 break;
-            case "s":
+            case 5:
                 askToSaveCurrentClass();
                 break;
-            case "e":
+            case 6:
                 emptyClass();
                 break;
-            case "q":
+            case 7:
                 quitApp();
         }
     }
@@ -237,16 +216,16 @@ public class AttendanceApp {
     // MODIFIES: this
     // EFFECTS: Asks and returns user's chosen class category for their current class
     public Category askForClassCategory() {
-        String choice;
+        int choice;
         Category classCategory;
         while (true) {
             System.out.println("What category does this class fall under?"
-                    + "\n p -> Pre School"
-                    + "\n e -> Elementary"
-                    + "\n h -> High School"
-                    + "\n a -> Adult");
-            choice = input.next().toLowerCase();
-            if (validChoice(choice, listOfValidOptions("peha", 1))) {
+                    + "\n 1 -> Pre School"
+                    + "\n 2 -> Elementary"
+                    + "\n 3 -> High School"
+                    + "\n 4 -> Adult");
+            choice = Integer.parseInt(input.next().toLowerCase());
+            if (validChoice(choice, listOfValidOptions(4))) {
                 classCategory = createClassCategory(choice);
                 break;
             } else {
@@ -258,15 +237,15 @@ public class AttendanceApp {
 
     // REQUIRES: categoryEntry is a valid option for categories
     // EFFECTS: Maps user's category input to a corresponding category
-    public Category createClassCategory(String categoryEntry) {
+    public Category createClassCategory(int categoryEntry) {
         switch (categoryEntry) {
-            case "p":
+            case 1:
                 return Category.PRESCHOOL;
-            case "e":
+            case 2:
                 return Category.ELEMENTARY;
-            case "h":
+            case 3:
                 return Category.HIGHSCHOOL;
-            case "a":
+            case 4:
                 return Category.ADULT;
             default:
                 return null;
@@ -278,34 +257,34 @@ public class AttendanceApp {
     //          if they say yes, the people are added/removed as requested
     public void addOrRemovePeopleInClassMenu() {
         System.out.println("\nWhat would you like like to do?"
-                + "\n at -> Add Teacher"
-                + "\n rt -> Remove Teacher"
-                + "\n as -> Add Student"
-                + "\n rs -> Remove Student");
-        processAddOrRemoveChoice(input.next().toLowerCase(), listOfValidOptions("atrtasrs",
-                2));
+                + "\n 1 -> Add Teacher"
+                + "\n 2 -> Remove Teacher"
+                + "\n 3 -> Add Student"
+                + "\n 4 -> Remove Student");
+        int choice = Integer.parseInt(input.next().toLowerCase());
+        processAddOrRemoveChoice(choice, listOfValidOptions(4));
     }
 
     // MODIFIES: this
     // EFFECTS: if user's choice is one of the valid options
     //              maps user choice to available ClassRoomOperation options
     //          else asks user to input a valid option
-    public void processAddOrRemoveChoice(String choice, List<String> validOptions) {
+    public void processAddOrRemoveChoice(int choice, List<Integer> validOptions) {
         if (validChoice(choice, validOptions)) {
             switch (choice) {
-                case "at":
+                case 1:
                     this.addOrRemovePerson(ClassOperation.ADD_TEACHER);
                     System.out.println("Person added to current class");
                     break;
-                case "rt":
+                case 2:
                     this.addOrRemovePerson(ClassOperation.REMOVE_TEACHER);
                     System.out.println("Person removed from current class");
                     break;
-                case "as":
+                case 3:
                     this.addOrRemovePerson(ClassOperation.ADD_STUDENT);
                     System.out.println("Person added to current class");
                     break;
-                case "rs":
+                case 4:
                     this.addOrRemovePerson(ClassOperation.REMOVE_STUDENT);
                     System.out.println("Person removed from current class");
                     break;
@@ -318,22 +297,18 @@ public class AttendanceApp {
     // MODIFIES: this
     // EFFECTS: either adds/removes a teacher or student depending of type of change requested by user
     private void addOrRemovePerson(ClassOperation change) {
-        String personName = getNameOfPerson();
+        String personName;
         switch (change) {
             case ADD_STUDENT:
             case ADD_TEACHER:
                 startJTree();
                 break;
-//            case ADD_STUDENT:
-//                myClass.addStudentToClass(new Student(personName, true));
-//                break;
-//            case ADD_TEACHER:
-//                myClass.addTeacherToClass(new Student(personName, true));
-//                break;
             case REMOVE_STUDENT:
+                personName = getNameOfPerson();
                 myClass.removeStudentFromClass(personName);
                 break;
             case REMOVE_TEACHER:
+                personName = getNameOfPerson();
                 myClass.removeTeacherFromClass(personName);
                 break;
         }
@@ -346,10 +321,10 @@ public class AttendanceApp {
 
     // REQUIRES: validInputs is not empty
     // EFFECTS: checks if user input one of the offered menu options
-    public boolean validChoice(String choice, List<String> validInputs) {
+    public boolean validChoice(int choice, List<Integer> validInputs) {
         boolean valid = false;
-        for (String validInput : validInputs) {
-            if (choice.equals(validInput)) {
+        for (Integer validInput : validInputs) {
+            if (choice == validInput) {
                 valid = true;
                 break;
             }
@@ -443,7 +418,7 @@ public class AttendanceApp {
 
 
     public void mainForJTree() {
-        JFrame frame = new JFrame();
+        frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         // TODO: take this line away
         HandleJTree newContentPane = new HandleJTree(myClass);
