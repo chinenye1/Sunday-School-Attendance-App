@@ -66,6 +66,7 @@ class MyTreeModelListener implements TreeModelListener {
         oldNodeName = nodeName;
         System.out.println("" + node.getParent().toString());
         System.out.println("New value NodesInserted : " + node.getUserObject().toString());
+        System.out.println("jljkljk");
     }
 
     // EFFECTS: checks and notifies that a node was removed

@@ -29,7 +29,12 @@ public class HandleJTree extends JPanel implements ActionListener {
         super(new BorderLayout());
         this.myClass = myClass;
         treePanel = new DynamicTree(myClass);
-        populateTree(treePanel);
+        //populateTree(treePanel);
+        // TODO make getter for treeModel in DynamicTree and set listener AFTER populateTree(treePanel)
+        // - Set the listener AFTER populateTree is called
+        // - DynamicTree no longer needs myClass reference
+        // populateTree(treePanel);
+        // treePanel.getTreeModel.addTreeModelListener(new MyTreeModelListener(myclass));
         JButton addButton = new JButton("Add");
         addButton.setActionCommand(ADD_COMMAND);
         addButton.addActionListener(this);
@@ -48,30 +53,7 @@ public class HandleJTree extends JPanel implements ActionListener {
         add(panel, BorderLayout.SOUTH);
     }
 
-    // EFFECTS: Populates the tree initially with example Teachers and Students in the Classroom
-    //TODO: Populate tree with people already in the class
-    public void populateTree(DynamicTree treePanel) {
-        String teachersName = "Teachers";
-        String studentsName = "Students";
-        DefaultMutableTreeNode teachers = treePanel.addObject(null, teachersName);
-        DefaultMutableTreeNode students = treePanel.addObject(null, studentsName);
-        populateWithPeopleInClass(treePanel,teachers,students);
-        //treePanel.addObject(null, studentsName);  // this worked
 
-    }
-
-    // EFFECTS: populates tree with people already in the class
-    public void populateWithPeopleInClass(DynamicTree treePanel, DefaultMutableTreeNode teachersParentNode,
-                                          DefaultMutableTreeNode studentsParentNode) {
-        List<Person> teachers = myClass.getTeachers();
-        List<Person> students = myClass.getStudents();
-        for (Person teacher : teachers) {
-            treePanel.addObject(teachersParentNode, teacher.getName());
-        }
-        for (Person student : students) {
-            treePanel.addObject(studentsParentNode, student.getName());
-        }
-    }
 
     // EFFECTS: Checks if an action (add/remove/clear) is performed
     //          and changes the tree accordingly

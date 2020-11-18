@@ -274,7 +274,7 @@ public class AttendanceApp {
             switch (choice) {
                 case 1:
                     this.addOrRemovePerson(ClassOperation.ADD_TEACHER);
-                    System.out.println("Person added to current class");
+                    System.out.println("Teacher added to current class");
                     break;
                 case 2:
                     this.addOrRemovePerson(ClassOperation.REMOVE_TEACHER);
@@ -282,7 +282,7 @@ public class AttendanceApp {
                     break;
                 case 3:
                     this.addOrRemovePerson(ClassOperation.ADD_STUDENT);
-                    System.out.println("Person added to current class");
+                    System.out.println("Student added to current class");
                     break;
                 case 4:
                     this.addOrRemovePerson(ClassOperation.REMOVE_STUDENT);
@@ -419,7 +419,7 @@ public class AttendanceApp {
 
     public void mainForJTree() {
         frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         // TODO: take this line away
         HandleJTree newContentPane = new HandleJTree(myClass);
         frame.setContentPane(newContentPane);
