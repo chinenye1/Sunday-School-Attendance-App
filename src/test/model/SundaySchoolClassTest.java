@@ -289,6 +289,16 @@ class SundaySchoolClassTest {
     }
 
     @Test
+    public void testRemoveWrongStudentFromClassWhenOneStudentInClass() {
+        Student student1 = new Student("student1", present);
+        assertEquals(0, students.size());
+        students.add(student1);
+        assertEquals(1, students.size());
+        aClass.removeStudentFromClass("student2");
+        assertEquals(1, students.size());
+    }
+
+    @Test
     public void testRemoveOneStudentFromClassWhenManyTeachersInClass() {
         Student student1 = new Student("student1", present);
         Student student2 = new Student("student2", !present);
