@@ -19,17 +19,24 @@ class MyTreeModelListener implements TreeModelListener {
     private SundaySchoolClass myClass;
     private String oldNodeName;
 
+    // EFFECTS: initializes global reference to a sunday school
     public MyTreeModelListener(SundaySchoolClass myClass) {
         this.myClass = myClass;
     }
 
-    // EFFECTS: checks if and notifies that the tree node changed
+    // EFFECTS: checks if and notifies that name of tree node was changed.
     @Override
     public void treeNodesChanged(TreeModelEvent e) {
         DefaultMutableTreeNode node = (DefaultMutableTreeNode) (e.getTreePath()
                 .getLastPathComponent());
         int index = e.getChildIndices()[0];
         node = (DefaultMutableTreeNode) (node.getChildAt(index));
+        changeNameOfPersonInClass(node);
+        System.out.println("New value NodesChanged: " + node.getUserObject());
+    }
+
+    // EFFECTS: Changes the name of the person in the appropriate sunday school class list of person
+    private void changeNameOfPersonInClass(DefaultMutableTreeNode node) {
         String nodeName = node.getUserObject().toString();
         if (node.getParent().toString().equals("Teachers")) {
             for (Person teacher : myClass.getTeachers()) {
@@ -44,7 +51,6 @@ class MyTreeModelListener implements TreeModelListener {
                 }
             }
         }
-        System.out.println("New value NodesChanged: " + node.getUserObject());
     }
 
     // EFFECTS: checks if and notifies that a node was inserted
@@ -54,22 +60,24 @@ class MyTreeModelListener implements TreeModelListener {
                 .getLastPathComponent());
         int index = e.getChildIndices()[0];
         node = (DefaultMutableTreeNode) (node.getChildAt(index));
-        // TODO: get the parent node to know which list to add new person object.
-        // TODO: node.getParent()
+        addPersonAtNodeToClass(node);
+        System.out.println("New value NodesInserted : " + node.getUserObject().toString());
+    }
+
+    // EFFECTS: adds the inserted node/person into the appropriate sunday school class list of person
+    //          also saves the new nodes old person to check if it is renamed
+    private void addPersonAtNodeToClass(DefaultMutableTreeNode node) {
         String nodeName = node.getUserObject().toString();
         String parentNodeName = node.getParent().toString();
         if (parentNodeName.equals("Teachers")) {
             myClass.addTeacherToClass(new Teacher(nodeName, true));
-        } else if (node.getParent().toString().equals("Students")) {
+        } else if (parentNodeName.equals("Students")) {
             myClass.addStudentToClass(new Student(nodeName, true));
         }
         oldNodeName = nodeName;
-        System.out.println("" + node.getParent().toString());
-        System.out.println("New value NodesInserted : " + node.getUserObject().toString());
-        System.out.println("jljkljk");
     }
 
-    // EFFECTS: checks and notifies that a node was removed
+    // EFFECTS: checks if, and notifies that a node was removed
     @Override
     public void treeNodesRemoved(TreeModelEvent e) {
         DefaultMutableTreeNode node = (DefaultMutableTreeNode) (e.getTreePath()
@@ -79,7 +87,7 @@ class MyTreeModelListener implements TreeModelListener {
         System.out.println("New value NodesRemoved : " + node.getUserObject());
     }
 
-    // EFFECTS: checks if and notifies that the tree structure has changed
+    // EFFECTS: checks if, and notifies that the tree structure has changed
     @Override
     public void treeStructureChanged(TreeModelEvent e) {
         DefaultMutableTreeNode node = (DefaultMutableTreeNode) (e.getTreePath()

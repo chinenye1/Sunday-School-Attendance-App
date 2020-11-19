@@ -6,14 +6,18 @@ import model.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
 import model.Category;
 import model.SundaySchoolClass;
 import model.WorkRoom;
 import persistence.JsonReader;
 import persistence.JsonWriter;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
 import ui.tree.*;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -21,7 +25,7 @@ import javax.swing.JOptionPane;
  * /* This class was modeled after ui.WorkRoomApp class in:
  * https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
  * <p>
- * This is an app that enables one to take attendance of the entire class. And save who was in class
+ * This app  enables one to take attendance of the entire class. And save the names of the previous classes.
  * User is able to add and remove people in the class, as well as to view the people in the class.
  */
 public class AttendanceApp {
@@ -35,8 +39,6 @@ public class AttendanceApp {
     private boolean classLoaded = false;
     private HandleAudio playAudio = new HandleAudio();
     private JFrame frame;
-    //private HandleJTree handleJTree;
-    //private DynamicTree dynamicTree = new DynamicTree();
 
     public enum ClassOperation {
         ADD_TEACHER, REMOVE_TEACHER, ADD_STUDENT, REMOVE_STUDENT
@@ -71,20 +73,19 @@ public class AttendanceApp {
         }
     }
 
+    // EFFECTS: Displays an introductory message to user to let them know of the app's functionality
+    public void welcomeMessage() {
+        System.out.println("Welcome to Sunday School! \nUse this application to load previous Sunday School Classes,"
+                + "create a new Sunday School Class and save the name of your current Sunday School Class."
+                + " \nOnce you have a class, you can perform multiple operations on your class.");
+    }
+
     // EFFECTS: pop-up panel asks user if they would like to load the names of the previous classes.
     public void askToLoadPreviousClasses() {
         int answer = JOptionPane.showConfirmDialog(null, "Would you like to load a class?");
         if (answer == 0) {
             tryLoadingPreviousClass();
         }
-    }
-
-
-    // EFFECTS: Displays an introductory message to user to let them know of the app's functionality
-    public void welcomeMessage() {
-        System.out.println("Welcome to Sunday School! \nUse this application to load previous Sunday School Classes,"
-                + "create a new Sunday School Class and save your current Sunday School Class."
-                + " \nOnce you have a class, you can perform multiple operations on your class.");
     }
 
     // MODIFIES: this
@@ -127,7 +128,6 @@ public class AttendanceApp {
         if (!classLoaded) {
             loadPreviousClassRoom();
             classLoaded = true;
-
         } else {
             System.out.println("Your previous class has already been loaded."
                     + "\nPlease choose a different option");
@@ -314,11 +314,6 @@ public class AttendanceApp {
         }
     }
 
-    public void startJTree() {
-        mainForJTree();
-    }
-
-
     // REQUIRES: validInputs is not empty
     // EFFECTS: checks if user input one of the offered menu options
     public boolean validChoice(int choice, List<Integer> validInputs) {
@@ -410,21 +405,21 @@ public class AttendanceApp {
         try {
             workRoom = jsonReader.read();
             playAudio.playAudio("C:\\Labs-210\\Week 1\\project_c1y2b\\data\\Music\\Elevator Ding Sound.wav");
-            System.out.println("Loaded " + workRoom.getName() + " from " + JSON_STORE);
+            System.out.println("\nLoaded " + workRoom.getName() + " from " + JSON_STORE);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }
     }
 
-
-    public void mainForJTree() {
+    // EFFECTS: creates a new JFrame panel and assigns it a content pane, that is visible
+    public void startJTree() {
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        // TODO: take this line away
         HandleJTree newContentPane = new HandleJTree(myClass);
         frame.setContentPane(newContentPane);
         frame.pack();
         frame.setVisible(true);
     }
+
 
 }

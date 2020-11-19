@@ -8,7 +8,6 @@ import javax.swing.tree.*;
 import java.awt.*;
 import java.util.List;
 
-
 /**
  * This class represents a mutable JTree with a root node and children nodes
  * <p>
@@ -20,19 +19,16 @@ public class DynamicTree extends JPanel {
     DefaultTreeModel treeModel = new DefaultTreeModel(rootNode);
     JTree tree;
 
-    /**
-     * EFFECTS: creates new dynamic tree:
-     * with a JPanel of specified size
-     * sets JTree model with a default tree model (with a default tree node)
-     * made the tree editable
-     * a tree model listener
-     * visible root handles
-     * creates and adds scroll pane
-     */
+
+    // EFFECTS: creates new dynamic tree:
+    //              with a JPanel of specified size
+    //               sets JTree model with a default tree model (with a default tree node)
+    //               made the tree editable
+    //               a tree model listener
+    //               visible root handles
+    //               creates and adds scroll pane
     public DynamicTree(SundaySchoolClass myClass) {
         super(new GridLayout(1, 0));
-        // TODO: pass in teachers and students lists into the MyTreeModelListener constructor and the
-        //  DynamicTree constructor found in AttendanceApp
         populateTree(myClass);
         treeModel.addTreeModelListener(new MyTreeModelListener(myClass));
         tree = new JTree(treeModel);
@@ -45,16 +41,15 @@ public class DynamicTree extends JPanel {
     }
 
     // EFFECTS: Populates the tree initially with example Teachers and Students in the Classroom
-    //TODO: Populate tree with people already in the class
     public void populateTree(SundaySchoolClass myClass) {
         String teachersName = "Teachers";
         String studentsName = "Students";
         DefaultMutableTreeNode teachers = addObject(null, teachersName);
         DefaultMutableTreeNode students = addObject(null, studentsName);
         populateWithPeopleInClass(myClass, teachers, students);
-        //treePanel.addObject(null, studentsName);  // this worked
     }
 
+    // REQUIRES: teachersParentNode != null
     // EFFECTS: populates tree with people already in the class
     public void populateWithPeopleInClass(SundaySchoolClass myClass, DefaultMutableTreeNode teachersParentNode,
                                           DefaultMutableTreeNode studentsParentNode) {
@@ -102,18 +97,16 @@ public class DynamicTree extends JPanel {
         return addObject(parentNode, child, true);
     }
 
-    // EFFECTS: returns a new childnode  that has been added below the parent node
+    // EFFECTS: returns a new child node  that has been added to the parent node
     public DefaultMutableTreeNode addObject(DefaultMutableTreeNode parent,
                                             Object child) {
         return addObject(parent, child, false);
     }
 
-    /**
-     * EFFECTS: makes a new child node and inserts it to the tree model under the parent node ,
-     * if the parent node is null, then parent node becomes root node.
-     * if the panel should be visible, it makes the scroll panel visible
-     * returns the created childnode
-     */
+    // EFFECTS: makes a new child node and inserts it to the tree model under the parent node ,
+    //          if the parent node is null, then parent node becomes root node.
+    //          if the panel should be visible, it makes the scroll panel visible
+    //             returns the created childnode
     public DefaultMutableTreeNode addObject(DefaultMutableTreeNode parent,
                                             Object child, boolean shouldBeVisible) {
         DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(child);
