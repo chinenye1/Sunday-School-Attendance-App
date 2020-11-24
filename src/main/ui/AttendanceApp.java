@@ -286,7 +286,6 @@ public class AttendanceApp {
                     break;
                 case 4:
                     this.addOrRemovePerson(ClassOperation.REMOVE_STUDENT);
-                    System.out.println("Person removed from current class");
                     break;
             }
         } else {
@@ -297,30 +296,39 @@ public class AttendanceApp {
     // MODIFIES: this
     // EFFECTS: either adds/removes a teacher or student depending of type of change requested by user
     private void addOrRemovePerson(ClassOperation change) {
-        String personName;
         switch (change) {
             case ADD_STUDENT:
             case ADD_TEACHER:
                 startJTree();
                 break;
             case REMOVE_STUDENT:
-                personName = getNameOfPerson();
-                try {
-                    myClass.removeStudentFromClass(personName);
-                    System.out.println("Person removed from current class");
-                } catch (PersonNotInListException e) {
-                    System.out.println("There is no such student in this class.");;
-                }
+                removePerson(ClassOperation.REMOVE_STUDENT);
                 break;
             case REMOVE_TEACHER:
-                personName = getNameOfPerson();
-                try {
-                    myClass.removeTeacherFromClass(personName);
-                    System.out.println("Person removed from current class");
-                } catch (PersonNotInListException e) {
-                    System.out.println("There is no such teacher in this class.");;
-                }
+                removePerson(ClassOperation.REMOVE_TEACHER);
                 break;
+        }
+    }
+
+    // EFFECTS: If the person is in the class
+    //              removes person from class and notifies user
+    //          otherwise notifies user that no such person is in the class
+    public void removePerson(ClassOperation person) {
+        String personName = getNameOfPerson();
+        if (person.equals(ClassOperation.REMOVE_TEACHER)) {
+            try {
+                myClass.removeTeacherFromClass(personName);
+                System.out.println("Person removed from current class");
+            } catch (PersonNotInListException e) {
+                System.out.println("There is no such teacher in this class.");
+            }
+        } else {
+            try {
+                myClass.removeStudentFromClass(personName);
+                System.out.println("Person removed from current class");
+            } catch (PersonNotInListException e) {
+                System.out.println("There is no such student in this class.");
+            }
         }
     }
 

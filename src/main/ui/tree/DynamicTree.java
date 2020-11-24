@@ -85,7 +85,6 @@ public class DynamicTree extends JPanel {
     }
 
     // EFFECTS: adds a Person to the selected node
-    // TODO: change signature to add a person and allow a person to be addable
     public DefaultMutableTreeNode addObject(Object child) {
         DefaultMutableTreeNode parentNode = null;
         TreePath parentPath = tree.getSelectionPath();

@@ -66,8 +66,6 @@ public class SundaySchoolClass implements Writable {
         return findPersonThatMeetsRequirement(students, !IS_PRESENT);
     }
 
-    //TODO: MAKE A GENERIC ADD AND REMOVE METHOD FOR PERSON. AND REFACTOR/RENAME THE BELOW ADD AND REMOVE METHODS
-
     // MODIFIES: this
     // EFFECTS: adds teacher to list of teachers
     public void addTeacherToClass(Person teacher) {
