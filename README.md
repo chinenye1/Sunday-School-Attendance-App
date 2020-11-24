@@ -36,7 +36,9 @@ as to create efficient carpool groups which minimize the distance that each driv
 - As a user, I want to be able to be able to load a previous sunday school class from file 
 
 
-  
+ Phase 4: Task 2
+ Tested and designed my Sunday School Class in the model package to be robust. 
+ Made the removeStudent and removeTeachers methods robust.
   
    
    

@@ -1,5 +1,6 @@
 package model;
 
+import model.exception.PersonNotInListException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -225,8 +226,12 @@ class SundaySchoolClassTest {
     public void testRemoveOneTeacherFromClassWhenNoTeacherInClass() {
         Teacher teacher1 = new Teacher("teacher1", present);
         assertEquals(0, teachers.size());
-        aClass.removeTeacherFromClass("teacher1");
-        assertEquals(0, teachers.size());
+        try {
+            aClass.removeTeacherFromClass("teacher1");
+            fail("Expected to catch EmptyListException");
+        } catch (PersonNotInListException e) {
+            // Do nothing
+        }
     }
 
     @Test
@@ -234,8 +239,12 @@ class SundaySchoolClassTest {
         Teacher teacher1 = new Teacher("teacher1", present);
         teachers.add(teacher1);
         assertEquals(1, teachers.size());
-        aClass.removeTeacherFromClass("teacher1");
-        assertEquals(0, teachers.size());
+        try {
+            aClass.removeTeacherFromClass("teacher1");
+            assertEquals(0, teachers.size());
+        } catch (PersonNotInListException e) {
+            fail("Did not expect to catch EmptyListException");
+        }
     }
 
     @Test
@@ -249,8 +258,12 @@ class SundaySchoolClassTest {
         teachers.add(teacher3);
         teachers.add(teacher4);
         assertEquals(4, teachers.size());
-        aClass.removeTeacherFromClass("teacher3");
-        aClass.removeTeacherFromClass("teacher1");
+        try {
+            aClass.removeTeacherFromClass("teacher3");
+            aClass.removeTeacherFromClass("teacher1");
+        } catch (PersonNotInListException e) {
+            fail("Did not expect to catch EmptyListException");
+        }
         assertEquals(2, teachers.size());
     }
 
@@ -275,8 +288,12 @@ class SundaySchoolClassTest {
     public void testRemoveOneStudentFromClassWhenNoStudentInClass() {
         Student student1 = new Student("student1", present);
         assertEquals(0, students.size());
-        aClass.removeStudentFromClass("student1");
-        assertEquals(0, students.size());
+        try {
+            aClass.removeStudentFromClass("student1");
+            fail("Expected to catch EmptyListException");
+        } catch (PersonNotInListException e) {
+            // Do nothing
+        }
     }
 
     @Test
@@ -284,8 +301,13 @@ class SundaySchoolClassTest {
         Student student1 = new Student("student1", present);
         assertEquals(0, students.size());
         students.add(student1);
-        aClass.removeStudentFromClass("student1");
-        assertEquals(0, students.size());
+        assertEquals(1, students.size());
+        try {
+            aClass.removeStudentFromClass("student1");
+            assertEquals(0, students.size());
+        } catch (PersonNotInListException e) {
+            fail("Did not expect to catch EmptyListException");
+        }
     }
 
     @Test
@@ -294,12 +316,16 @@ class SundaySchoolClassTest {
         assertEquals(0, students.size());
         students.add(student1);
         assertEquals(1, students.size());
-        aClass.removeStudentFromClass("student2");
-        assertEquals(1, students.size());
+        try {
+            aClass.removeStudentFromClass("student2");
+            fail("Expected to catch EmptyListException");
+        } catch (PersonNotInListException e) {
+            // Do nothing
+        }
     }
 
     @Test
-    public void testRemoveOneStudentFromClassWhenManyTeachersInClass() {
+    public void testRemoveManyStudentsFromClassWhenManyTeachersInClass() {
         Student student1 = new Student("student1", present);
         Student student2 = new Student("student2", !present);
         Student student3 = new Student("student3", present);
@@ -309,10 +335,14 @@ class SundaySchoolClassTest {
         students.add(student3);
         students.add(student4);
         assertEquals(4, students.size());
-        aClass.removeStudentFromClass("student1");
-        aClass.removeStudentFromClass("student2");
-        aClass.removeStudentFromClass("student3");
-        assertEquals(1, students.size());
+        try {
+            aClass.removeStudentFromClass("student1");
+            aClass.removeStudentFromClass("student2");
+            aClass.removeStudentFromClass("student3");
+            assertEquals(1, students.size());
+        } catch (PersonNotInListException e) {
+            fail("Did not expect to catch EmptyListException");
+        }
     }
 
     @Test
@@ -372,7 +402,5 @@ class SundaySchoolClassTest {
         Student newStudent = new Student("ns", true);
         assertEquals("nt", teachers.get(0).getName());
         assertEquals("ns", students.get(0).getName());
-
-
     }
 }

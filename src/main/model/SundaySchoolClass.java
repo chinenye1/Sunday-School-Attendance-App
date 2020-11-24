@@ -1,5 +1,6 @@
 package model;
 
+import model.exception.PersonNotInListException;
 import persistence.Writable;
 import org.json.JSONObject;
 
@@ -31,6 +32,7 @@ public class SundaySchoolClass implements Writable {
     // MODIFIES: this
     // EFFECTS: returns number of students and teachers present today
     public void takeAttendance() {
+        this.dailyClassTotal = 0;
         for (Person s : students) {
             if (s.getIsPresent()) {
                 dailyClassTotal++;
@@ -78,27 +80,39 @@ public class SundaySchoolClass implements Writable {
         students.add(student);
     }
 
-    // REQUIRES: teachers isn't empty
     // MODIFIES: this
-    // EFFECTS: removes teacher from list of teachers
-    public void removeTeacherFromClass(String name) {
+    // EFFECTS: if list of teachers has the teacher (name)
+    //              removes teacher from list of teachers
+    //          if teacher is not in the list, throws EmptyListException
+    public void removeTeacherFromClass(String name) throws PersonNotInListException {
+        boolean personFound = false;
         for (int i = 0; i < teachers.size(); i++) {
             if (teachers.get(i).getName().equals(name)) {
                 teachers.remove(i);
+                personFound = true;
                 break;
             }
         }
+        if (!personFound) {
+            throw new PersonNotInListException();
+        }
     }
 
-    // REQUIRES: students isn't empty
     // MODIFIES: this
-    // EFFECTS: removes student from list of students
-    public void removeStudentFromClass(String name) {
+    // EFFECTS: if list of students has the student (name)
+    //               throws EmptyListException
+    //          if student is not in the list, throws EmptyListException
+    public void removeStudentFromClass(String name) throws PersonNotInListException {
+        boolean personFound = false;
         for (int i = 0; i < students.size(); i++) {
             if (students.get(i).getName().equals(name)) {
                 students.remove(i);
+                personFound = true;
                 break;
             }
+        }
+        if (!personFound) {
+            throw new PersonNotInListException();
         }
     }
 

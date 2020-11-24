@@ -10,6 +10,7 @@ import java.util.Scanner;
 import model.Category;
 import model.SundaySchoolClass;
 import model.WorkRoom;
+import model.exception.PersonNotInListException;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -278,7 +279,6 @@ public class AttendanceApp {
                     break;
                 case 2:
                     this.addOrRemovePerson(ClassOperation.REMOVE_TEACHER);
-                    System.out.println("Person removed from current class");
                     break;
                 case 3:
                     this.addOrRemovePerson(ClassOperation.ADD_STUDENT);
@@ -305,11 +305,21 @@ public class AttendanceApp {
                 break;
             case REMOVE_STUDENT:
                 personName = getNameOfPerson();
-                myClass.removeStudentFromClass(personName);
+                try {
+                    myClass.removeStudentFromClass(personName);
+                    System.out.println("Person removed from current class");
+                } catch (PersonNotInListException e) {
+                    System.out.println("There is no such student in this class.");;
+                }
                 break;
             case REMOVE_TEACHER:
                 personName = getNameOfPerson();
-                myClass.removeTeacherFromClass(personName);
+                try {
+                    myClass.removeTeacherFromClass(personName);
+                    System.out.println("Person removed from current class");
+                } catch (PersonNotInListException e) {
+                    System.out.println("There is no such teacher in this class.");;
+                }
                 break;
         }
     }
@@ -420,6 +430,5 @@ public class AttendanceApp {
         frame.pack();
         frame.setVisible(true);
     }
-
 
 }
