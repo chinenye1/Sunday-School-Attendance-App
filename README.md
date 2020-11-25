@@ -44,22 +44,21 @@ as to create efficient carpool groups which minimize the distance that each driv
   
  **Phase 4: Task 3**   
  
-- I would also refactor the code in AttendanceApp concerning WorkRoom and Json into a class called HandleWorkRoom
+- I would refactor the code in AttendanceApp that concerns WorkRoom and Json into a class called HandlePersistence
     - This new class would contain single fields to WorkRoom, JsonReader and JsonWriter.
-    - Then AttendanceApp would only have fields to Scanner and HandleAudio and HandleWorkroom
+    - Then in the UML diagram, AttendanceApp would only have fields to HandleAudio and HandlePersistence
 - Currently, there is a bit of coupling in the program where AttendanceApp has a SundaySchoolClass field
-and a WorkRoom field (that has a list of classes), but I would like to leave it like this, because AttendanceApp 
-uses a single class/the current class through out the program, and also passes that class in to the ui.tree.HandleJTree 
-class, so I would need to know exactly which instance of the class we are currently editing.
+and a WorkRoom field (that has a list of classes), but I would like to leave it like that. This is because AttendanceApp 
+utilizes the current class throughout the program, and also passes a reference of that class to the ui.tree.HandleJTree 
+class, so I would like to have ease of access to the exact class in the list of loaded classes that is being edited.
     - With the change in the first bullet point, the coupling present would still exist. The only difference the field
-     of type WorkRoom in AttendanceApp, would be replace by a field of type HandleWorkRoom. However, AttendanceApp would 
-     still store a seperate reference to the current class (may be new or a loaded one) for ease of access to classes
-      contents.
+     of type WorkRoom in AttendanceApp, would be replaced by a field of type HandlePersistence. However, 
+     AttendanceApp would still store a separate reference to the current class for ease of access to class's contents.
 - I would change the implementation of loadClass in AttendanceApp to display the saved classes
 and ask user which of the classes they would like load. 
     - The chosen class would then be stored in the myClass field currently available in AttendanceApp. 
-    Then if the user does not want to load a previous class, but chooses to create an new class, the myClass variable 
-    will be assigned to a new SundaySchoolClass
+    Then, if the user does not want to load a previous class, but chooses to create a new class, the myClass field 
+    will be assigned a new SundaySchoolClass.
         - This will allow any chosen class to be called up, displayed on the GUI, edited and saved back to the workroom 
 
 
