@@ -25,7 +25,7 @@ import javax.swing.JOptionPane;
 /**
  * /* This class was modeled after ui.WorkRoomApp class in:
  * https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
- * <p>
+ *
  * This app  enables one to take attendance of the entire class. And save the names of the previous classes.
  * User is able to add and remove people in the class, as well as to view the people in the class.
  */

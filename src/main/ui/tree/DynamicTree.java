@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * This class represents a mutable JTree with a root node and children nodes
- * <p>
+ *
  * This class was modeled after the JTree example found on:
  * http://www.java2s.com/Tutorials/Java/Swing_How_to/JTree/Add_insert_and_update_JTree.htm
  */

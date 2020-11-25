@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 
 /**
  * This class deals with the user's events on the mutable JTree displayed
- * <p>
+ *
  * This class was modeled after the JTree example found on:
  * http://www.java2s.com/Tutorials/Java/Swing_How_to/JTree/Add_insert_and_update_JTree.htm
  */
@@ -21,7 +21,7 @@ public class HandleJTree extends JPanel implements ActionListener {
     static String CLEAR_COMMAND = "clear";
     DynamicTree treePanel;
 
-    // Creates and adds a new treePanel with set dimensions and adds buttons
+    // EFFECTS: Creates and adds a new treePanel with set dimensions and adds buttons
     public HandleJTree(SundaySchoolClass myClass) {
         super(new BorderLayout());
         treePanel = new DynamicTree(myClass);

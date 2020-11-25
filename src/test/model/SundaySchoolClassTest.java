@@ -8,7 +8,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/*
+/**
  * Unit tests for the SundaySchoolClass class
  */
 class SundaySchoolClassTest {

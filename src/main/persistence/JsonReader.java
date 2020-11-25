@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 
 import org.json.*;
 
-/*
+/**
  This class was modeled after the persistence.JsonReader class in: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
  Represents a reader that reads workroom from JSON data stored in file
  */

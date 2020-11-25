@@ -1,6 +1,6 @@
 package model;
 
-/*
+/**
  * Represents a sunday school teacher
  */
 public class Teacher extends Person {

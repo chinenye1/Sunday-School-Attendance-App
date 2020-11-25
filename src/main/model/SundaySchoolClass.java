@@ -7,7 +7,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
+/**
  * Represents a sunday school class with a teacher and a list of students; the class starts empty.
  * Class behaviour entails typical activities in a sunday school class.
  */

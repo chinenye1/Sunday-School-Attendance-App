@@ -11,7 +11,7 @@ import model.Teacher;
 
 /**
  * This class listens to all the changes done to the mutable JTree and adjusts it.
- * <p>
+ *
  * This class was modeled after the JTree example found on:
  * http://www.java2s.com/Tutorials/Java/Swing_How_to/JTree/Add_insert_and_update_JTree.htm
  */

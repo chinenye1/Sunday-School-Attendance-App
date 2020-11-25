@@ -6,7 +6,7 @@ import org.json.JSONObject;
 
 import java.io.*;
 
-/*
+/**
  This class was modeled after the persistence.JsonWriter class in: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
  Represents a writer that writes JSON representation of workroom to file
  */

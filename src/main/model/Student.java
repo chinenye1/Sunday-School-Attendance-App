@@ -1,6 +1,6 @@
 package model;
 
-/*
+/**
  * Represents a student in a Sunday School class
  */
 public class Student extends Person {

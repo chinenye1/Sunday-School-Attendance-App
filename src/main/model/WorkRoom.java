@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/*
+/**
  This class was modeled after the model.WorkRoom class in: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
  Represents a workroom having a collection of classes
  */
@@ -43,6 +43,7 @@ public class WorkRoom implements Writable {
     }
 
     @Override
+    // EFFECTS: returns a JSON object
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("name", name);
@@ -53,11 +54,9 @@ public class WorkRoom implements Writable {
     // EFFECTS: returns classes in this workroom as a JSON array
     private JSONArray classesToJson() {
         JSONArray jsonArray = new JSONArray();
-
         for (SundaySchoolClass t : sundaySchoolClasses) {
             jsonArray.put(t.toJson());
         }
-
         return jsonArray;
     }
 }

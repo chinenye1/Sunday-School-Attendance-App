@@ -10,7 +10,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/*
+/**
  This class was modeled after the persistence.JsonReaderTest class in:
   https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
  Tests the JsonReader class
