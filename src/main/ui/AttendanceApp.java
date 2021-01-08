@@ -39,7 +39,7 @@ public class AttendanceApp {
     private JsonReader jsonReader;
     private boolean keepGoing = true;
     private boolean classLoaded = false;
-    private HandleAudio playAudio = new HandleAudio();
+    private HandleAudio audioPlayer = new HandleAudio();
     private JFrame frame;
 
     public enum ClassOperation {
@@ -411,7 +411,7 @@ public class AttendanceApp {
             jsonWriter.open();
             jsonWriter.write(workRoom);
             jsonWriter.close();
-            playAudio.playAudio("C:\\Labs-210\\Week 1\\project_c1y2b\\data\\Music\\Missile_Launch Sound.wav");
+            audioPlayer.playAudio("data\\Music\\Missile_Launch Sound.wav");
             System.out.println("Saved " + workRoom.getName() + " to " + JSON_STORE);
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + JSON_STORE);
@@ -425,7 +425,7 @@ public class AttendanceApp {
     private void loadPreviousClassRoom() {
         try {
             workRoom = jsonReader.read();
-            playAudio.playAudio("C:\\Labs-210\\Week 1\\project_c1y2b\\data\\Music\\Elevator Ding Sound.wav");
+            audioPlayer.playAudio("data\\Music\\Elevator Ding Sound.wav");
             System.out.println("\nLoaded " + workRoom.getName() + " from " + JSON_STORE);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);

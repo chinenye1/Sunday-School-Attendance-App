@@ -40,6 +40,7 @@ public class DynamicTree extends JPanel {
         add(scrollPane);
     }
 
+
     // EFFECTS: Populates the tree initially with example Teachers and Students in the Classroom
     public void populateTree(SundaySchoolClass myClass) {
         String teachersName = "Teachers";
