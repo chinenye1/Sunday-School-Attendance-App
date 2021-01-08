@@ -10,6 +10,7 @@ import java.util.Scanner;
 import model.Category;
 import model.SundaySchoolClass;
 import model.WorkRoom;
+import model.exception.CouldNotFindAudioPathException;
 import model.exception.PersonNotInListException;
 import persistence.JsonReader;
 import persistence.JsonWriter;
@@ -25,7 +26,7 @@ import javax.swing.JOptionPane;
 /**
  * /* This class was modeled after ui.WorkRoomApp class in:
  * https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
- *
+ * <p>
  * This app  enables one to take attendance of the entire class. And save the names of the previous classes.
  * User is able to add and remove people in the class, as well as to view the people in the class.
  */
@@ -414,6 +415,8 @@ public class AttendanceApp {
             System.out.println("Saved " + workRoom.getName() + " to " + JSON_STORE);
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + JSON_STORE);
+        } catch (CouldNotFindAudioPathException e) {
+            JOptionPane.showMessageDialog(null, "There was an error Playing Audio");
         }
     }
 
@@ -426,6 +429,8 @@ public class AttendanceApp {
             System.out.println("\nLoaded " + workRoom.getName() + " from " + JSON_STORE);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
+        } catch (CouldNotFindAudioPathException e) {
+            JOptionPane.showMessageDialog(null, "There was an error Playing Audio");
         }
     }
 
