@@ -67,7 +67,13 @@ public class DynamicTree extends JPanel {
     // EFFECTS: removes all nodes i.e., the listed teachers and students
     //          including the top-most node
     public void clear() {
-        rootNode.removeAllChildren();
+        TreePath currentSelection = tree.getSelectionPath();
+        if (currentSelection != null) {
+            DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode) (currentSelection
+                    .getLastPathComponent());
+            currentNode.removeAllChildren();
+        }
+    //rootNode.removeAllChildren();
         treeModel.reload();
     }
 

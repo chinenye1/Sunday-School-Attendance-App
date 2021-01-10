@@ -80,21 +80,21 @@ class MyTreeModelListener implements TreeModelListener {
     // EFFECTS: checks if, and notifies that a node was removed
     @Override
     public void treeNodesRemoved(TreeModelEvent e) {
-        DefaultMutableTreeNode node = (DefaultMutableTreeNode) (e.getTreePath()
-                .getLastPathComponent());
-        int index = e.getChildIndices()[0];
-        node = (DefaultMutableTreeNode) (node.getChildAt(index));
-        System.out.println("New value NodesRemoved : " + node.getUserObject());
+//        DefaultMutableTreeNode node = (DefaultMutableTreeNode) (e.getTreePath()
+//                .getLastPathComponent());
+//        int index = e.getChildIndices()[0];
+//        node = (DefaultMutableTreeNode) (node.getChildAt(index));
+//        System.out.println("New value NodesRemoved : " + node.getUserObject());
     }
 
     // EFFECTS: checks if, and notifies that the tree structure has changed
     @Override
     public void treeStructureChanged(TreeModelEvent e) {
-        DefaultMutableTreeNode node = (DefaultMutableTreeNode) (e.getTreePath()
-                .getLastPathComponent());
-        int index = e.getChildIndices()[0];
-        node = (DefaultMutableTreeNode) (node.getChildAt(index));
-        System.out.println("New value StructureChanged : " + node.getUserObject());
+//        DefaultMutableTreeNode node = (DefaultMutableTreeNode) (e.getTreePath()
+//                .getLastPathComponent());
+//        int index = e.getChildIndices()[0];
+//        node = (DefaultMutableTreeNode) (node.getChildAt(index));
+//        System.out.println("New value StructureChanged : " + node.getUserObject());
     }
 }
 
