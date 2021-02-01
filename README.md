@@ -39,7 +39,7 @@ as to create efficient carpool groups which minimize the distance that each driv
  **Phase 4: Task 2**
  
  Tested and designed my Sunday School Class in the model package to be robust. 
- Made the removeStudent and removeTeachers methods robust.
+ Made the removeStudent and removeTeachers methods robust. 
   
   
   
